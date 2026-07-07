@@ -1,26 +1,176 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* Dark-mode variant driven by the [data-theme] attribute set on <html>
+   by the anti-flash inline script (see theme-script.tsx). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-@theme inline {
+/* ------------------------------------------------------------------ */
+/* Design tokens — "Obsidian monument" adapted to the Agent AI identity */
+/* Accent = cyan signal + deep teal, derived from the logo (provisional).*/
+/* ------------------------------------------------------------------ */
+@theme {
+  /* Brand accent — cyan signal + deep teal (from the logo, fixed across themes) */
+  --color-cyan-400: #46cadd;
+  --color-cyan-500: #24b7cc;
+  --color-cyan-600: #1a8da0;
+  --color-teal-700: #173c34;
+  --color-teal-800: #10322b;
+
+  /* Neutral scale */
+  --color-void: #000000;
+  --color-obsidian: #0a0a0a;
+  --color-ash: #cccccc;
+  --color-frost: #ffffff;
+  --color-graphite: #4c4c4c;
+
+  /* Semantic tokens (resolved per theme below via CSS vars) */
   --color-background: var(--background);
+  --color-surface: var(--surface);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-foreground-strong: var(--foreground-strong);
+  --color-muted: var(--muted);
+  --color-hairline: var(--hairline);
+  --color-accent: var(--color-cyan-500);
+
+  /* Typography */
+  --font-sui: var(--font-sui), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+
+  /* Fluid display scale (198 / 91 / 72 px caps). Mins kept small enough to
+     fit a 320px viewport without horizontal overflow. */
+  --text-display: clamp(2.5rem, 9vw, 9rem);
+  --text-heading-lg: clamp(2.25rem, 8vw, 5.6875rem);
+  --text-heading: clamp(2rem, 6vw, 4.5rem);
+  --text-heading-sm: 1.6875rem;
+  --text-subheading: 1.125rem;
+  --text-body-sm: 0.875rem;
+  --text-caption: 0.625rem;
+
+  /* Radius — only the pill is round; everything else is square */
+  --radius-pill: 9999px;
+
+  /* Motion */
+  --ease-signal: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ------------------------------------------------------------------ */
+/* Theme surfaces — dark is the default (brand). Light is full parity. */
+/* ------------------------------------------------------------------ */
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #000000;
+  --surface: #0a0a0a;
+  --foreground: #cccccc;
+  --foreground-strong: #ffffff;
+  --muted: #4c4c4c;
+  --hairline: rgba(255, 255, 255, 0.12);
+  --logo-ink: #ffffff; /* teal disappears on black → white mark on dark */
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --background: #ffffff;
+  --surface: #f5f3ee;
+  --foreground: #26241f;
+  --foreground-strong: #0a0a0a;
+  --muted: #8a857b;
+  --hairline: rgba(0, 0, 0, 0.14);
+  --logo-ink: #173c34; /* deep teal mark on light */
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    overflow-x: hidden; /* safety net against any horizontal scroll */
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sui);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-cyan-500);
+    color: #000;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-cyan-500);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ------------------------------------------------------------------ */
+/* Reusable primitives                                                 */
+/* ------------------------------------------------------------------ */
+@layer components {
+  /* Page container — generous gutters, 1400px column (DESIGN.md) */
+  .container-page {
+    width: 100%;
+    max-width: 1400px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 5vw, 7.875rem); /* up to 126px */
+  }
+
+  /* Display / heading utilities: scale + tracking + weight in one place */
+  .display-xl {
+    font-size: var(--text-display);
+    line-height: 0.96;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--foreground-strong);
+  }
+  .heading-lg {
+    font-size: var(--text-heading-lg);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--foreground-strong);
+  }
+  .heading {
+    font-size: var(--text-heading);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    font-weight: 700;
+    color: var(--foreground-strong);
+  }
+  .eyebrow {
+    font-size: var(--text-body-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* Accent gradient (cyan → teal) — reserved for logo/wordmark + primary CTA only */
+  .accent-fill {
+    background: linear-gradient(135deg, #46cadd 0%, #24b7cc 45%, #173c34 100%);
+  }
+  .accent-text {
+    background: linear-gradient(135deg, #46cadd 0%, #24b7cc 55%, #1a8da0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 }

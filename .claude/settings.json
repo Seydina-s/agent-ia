@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat \"C:\\\\Users\\\\HP\\\\.claude\\\\projects\\\\c--Users-HP-agent-ia\\\\memory\\\\MEMORY.md\" 2>/dev/null; echo \"---LIST---\"; ls -la \"C:\\\\Users\\\\HP\\\\.claude\\\\projects\\\\c--Users-HP-agent-ia\\\\memory\\\\\" 2>/dev/null)",
+      "Read(//c/Users/HP/.claude/projects/c--Users-HP-agent-ia/memory\" 2>/dev/**)",
+      "Read(//c/Users/HP/.claude/projects/c--Users-HP-agent-ia/memory//**)",
+      "Read(//c/Users/HP/.claude/projects/c--Users-HP-agent-ia/memory/**)",
+      "Bash(gh issue *)",
+      "Bash(npm ls *)",
+      "Bash(command -v claude-mem)",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/next/package.json'\\).version\\)\")",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/react/package.json'\\).version\\)\")",
+      "Bash(node -e \"console.log\\(require\\('./node_modules/motion/package.json'\\).version\\)\")",
+      "Bash(node -e \"const p=require\\('./node_modules/motion/package.json'\\); console.log\\('main:',p.main,'module:',p.module\\); console.log\\('exports keys:', Object.keys\\(p.exports||{}\\).join\\(', '\\)\\)\")",
+      "Bash(node -e \"console.log\\(Object.keys\\(require\\('./node_modules/motion/package.json'\\).exports['./react']||{}\\)\\)\")",
+      "Bash(node -e \"const m=require\\('./node_modules/motion/dist/cjs/react.js'\\); console.log\\(['LazyMotion','domAnimation','domMax','m','motion','AnimatePresence','useReducedMotion'].map\\(k=>k+':'+\\(k in m\\)\\).join\\('  '\\)\\)\")",
+      "Bash(npm run *)",
+      "Bash(taskkill //F //IM node.exe //T)",
+      "Bash(npm i *)",
+      "Bash(node -e \"console.log\\('puppeteer-core:', require\\('./node_modules/puppeteer-core/package.json'\\).version\\)\")",
+      "Bash(cp \"/c/Users/HP/AppData/Local/Temp/claude/c--Users-HP-agent-ia/af042a41-d2ce-4b7e-ac8a-965a958cf309/scratchpad/audit.mjs\" /c/Users/HP/agent-ia/_audit.mjs)",
+      "Bash(node /c/Users/HP/agent-ia/_audit.mjs \"http://localhost:3000/\" 320)",
+      "Bash(taskkill //F //IM chrome.exe //T)",
+      "Bash(git checkout *)"
+    ]
+  }
+}
