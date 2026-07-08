@@ -1,5 +1,8 @@
-// Runs synchronously in <head> before first paint to set [data-theme]
-// on <html>, preventing any flash of the wrong theme. See LESSONS L-002.
+import Script from "next/script";
+
+// Runs synchronously before hydration to set [data-theme] on <html>,
+// preventing any flash of the wrong theme. Uses next/script (beforeInteractive)
+// so React 19 doesn't reject a raw <script> in the tree. See LESSONS L-002.
 export const THEME_STORAGE_KEY = "agent-ai-theme";
 
 const script = `
@@ -9,7 +12,6 @@ const script = `
     var stored = localStorage.getItem(key);
     var theme = stored;
     if (theme !== "light" && theme !== "dark") {
-      // Brand default is dark; honour an explicit system light preference.
       theme = window.matchMedia("(prefers-color-scheme: light)").matches
         ? "light"
         : "dark";
@@ -22,5 +24,12 @@ const script = `
 `;
 
 export function ThemeScript() {
-  return <script dangerouslySetInnerHTML={{ __html: script }} />;
+  return (
+    // beforeInteractive in the root layout is the correct App Router placement;
+    // the lint rule below is a stale Pages-Router (_document) heuristic.
+    // eslint-disable-next-line @next/next/no-before-interactive-script-outside-document
+    <Script id="theme-init" strategy="beforeInteractive">
+      {script}
+    </Script>
+  );
 }

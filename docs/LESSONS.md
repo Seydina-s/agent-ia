@@ -60,4 +60,15 @@ Format d'une entrée :
 
 ---
 
+## L-006 — Script anti-flash + toggle thème : erreurs React 19 · 2026-07-08
+- **Symptôme** : 2 erreurs dev — (1) « Encountered a script tag while rendering React component » (theme-script), (2) « Hydration failed » sur `ThemeToggle` (aria-label/aria-pressed serveur ≠ client).
+- **Cause** : (1) React 19 rejette un `<script dangerouslySetInnerHTML>` rendu dans l'arbre. (2) Le serveur rend le thème par défaut « dark », le client lit le vrai thème (attribut posé par le script) → mismatch.
+- **Correctif** : (1) `next/script` `strategy="beforeInteractive"` dans le root layout (placement correct App Router ; le lint `no-before-interactive-script-outside-document` est obsolète → désactivé sur la ligne). (2) `useHydrated()` (`useSyncExternalStore`, snapshot serveur=false) : rendre la valeur SSR par défaut jusqu'à hydratation.
+- **Règle de prévention (verrou)** :
+  - **Jamais** de `<script>` inline via JSX dans un composant → utiliser `next/script`.
+  - Tout affichage qui dépend d'un état **client-only** (thème, locale, `Date`, `localStorage`) doit rendre la **valeur SSR par défaut** jusqu'à hydratation via **`useHydrated()`** (`src/lib/use-hydrated.ts`) — pas de `setState` dans un `useEffect` (règle `react-hooks/set-state-in-effect`).
+  - Vérifier **0 erreur console** via puppeteer (`p.on('console'/'pageerror')`) avant de clore une tâche UI, pas seulement le build.
+
+---
+
 <!-- Ajouter les nouvelles leçons au-dessus de cette ligne, plus récente en haut. -->

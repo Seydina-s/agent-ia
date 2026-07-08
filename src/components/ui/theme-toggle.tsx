@@ -1,10 +1,15 @@
 "use client";
 
 import { useTheme } from "@/components/theme/theme-provider";
+import { useHydrated } from "@/lib/use-hydrated";
 
 export function ThemeToggle({ className }: { className?: string }) {
   const { theme, toggleTheme } = useTheme();
-  const isDark = theme === "dark";
+
+  // The real theme is only known on the client (set by the anti-flash script).
+  // Until hydrated, render the SSR default ("dark") so hydration matches.
+  const hydrated = useHydrated();
+  const isDark = hydrated ? theme === "dark" : true;
 
   return (
     <button
