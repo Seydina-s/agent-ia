@@ -8,7 +8,8 @@ import { cn } from "@/lib/utils";
 const items = [
   { name: "Accueil", url: "/" },
   { name: "Agents", url: "/agents" },
-  { name: "Contact", url: "/contact" },
+  { name: "Services", url: "/services" },
+  { name: "Blog", url: "/blog" },
 ];
 
 // Glass pill nav with a "lamp" light that glides onto the active route.

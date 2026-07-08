@@ -3,8 +3,10 @@ import { Logo } from "@/components/brand/logo";
 import { NewsletterForm } from "@/components/newsletter/newsletter-form";
 
 const nav = [
-  { href: "/", label: "Accueil" },
   { href: "/agents", label: "Agents" },
+  { href: "/services", label: "Services" },
+  { href: "/blog", label: "Blog" },
+  { href: "/documentation", label: "Documentation" },
   { href: "/contact", label: "Contact" },
 ];
 

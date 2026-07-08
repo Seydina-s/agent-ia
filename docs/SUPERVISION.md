@@ -24,4 +24,9 @@ Format :
 
 ---
 
+## [2026-07-08] — Sprint 5 : pages Services / Documentation / Blog · ✅
+- **Contrôles** : build ✅ (3 articles SSG) · lint ✅ · console ✅ (0 err) · responsive ✅ (280→1440, 0px overflow sur /services, /documentation, /blog, /blog/[slug]).
+- **Livré** : Services (6 lignes de service), Documentation (glossaire 12 termes), Blog (index + 3 articles seed + page article). Nav recâblée (lamp desktop 4 items, overlay mobile 6, footer). Breakpoint header md→lg.
+- **Suivis** : contenu blog = seed (à remplacer par le CMS du backoffice) ; nav/footer à compléter quand backoffice prêt.
+
 <!-- Nouvelles entrées au-dessus de cette ligne. -->

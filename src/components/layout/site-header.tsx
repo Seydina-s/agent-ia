@@ -13,6 +13,9 @@ import { ease } from "@/lib/motion";
 const links = [
   { href: "/", label: "Accueil" },
   { href: "/agents", label: "Agents" },
+  { href: "/services", label: "Services" },
+  { href: "/blog", label: "Blog" },
+  { href: "/documentation", label: "Documentation" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -42,9 +45,9 @@ export function SiteHeader() {
         <Logo />
 
         {/* Desktop nav — glass pill with the "lamp" on the active page */}
-        <LampNav className="hidden md:flex" />
+        <LampNav className="hidden lg:flex" />
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 lg:flex">
           <ThemeToggle />
           <GlassButton href="/contact">Nous contacter</GlassButton>
         </div>
@@ -52,7 +55,7 @@ export function SiteHeader() {
         {/* Mobile trigger */}
         <button
           type="button"
-          className="flex size-10 flex-col items-center justify-center gap-1.5 md:hidden"
+          className="flex size-10 flex-col items-center justify-center gap-1.5 lg:hidden"
           aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -79,27 +82,31 @@ export function SiteHeader() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: ease.soft }}
-            className="fixed inset-0 z-40 bg-background md:hidden"
+            className="fixed inset-0 z-40 bg-background lg:hidden"
           >
-            <nav className="container-page flex h-full flex-col justify-center gap-2 pt-18">
+            <nav className="container-page flex h-full flex-col justify-center gap-1 overflow-y-auto py-24">
               {links.map((l, i) => (
                 <m.div
                   key={l.href}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.08 + i * 0.06, ease: ease.soft }}
+                  transition={{ delay: 0.06 + i * 0.05, ease: ease.soft }}
                 >
                   <Link
                     href={l.href}
                     onClick={() => setOpen(false)}
-                    className="heading block py-2"
+                    className={`block py-2 text-[1.75rem] font-medium tracking-tight transition-colors ${
+                      isActive(l.href)
+                        ? "text-accent"
+                        : "text-foreground-strong hover:text-accent"
+                    }`}
                     aria-current={isActive(l.href) ? "page" : undefined}
                   >
                     {l.label}
                   </Link>
                 </m.div>
               ))}
-              <div className="mt-8 flex items-center gap-3">
+              <div className="mt-6 flex items-center gap-3">
                 <GlassButton href="/contact" size="lg" onClick={() => setOpen(false)}>
                   Nous contacter
                 </GlassButton>
