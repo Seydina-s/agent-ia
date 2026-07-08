@@ -1,6 +1,7 @@
 import { getSession } from "@/lib/auth/session";
 import { logout } from "@/lib/auth/actions";
 import { sql } from "@/lib/db";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export const dynamic = "force-dynamic";
 
@@ -52,7 +53,10 @@ export default async function AdminDashboard() {
           <h1 className="heading mt-2">Tableau de bord</h1>
         </div>
         <div className="flex items-center gap-4">
-          <span className="text-body-sm text-muted">{session?.email}</span>
+          <span className="hidden text-body-sm text-muted sm:inline">
+            {session?.email}
+          </span>
+          <ThemeToggle />
           <form action={logout}>
             <button
               type="submit"

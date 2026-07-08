@@ -31,6 +31,7 @@
   --color-muted: var(--muted);
   --color-hairline: var(--hairline);
   --color-accent: var(--color-cyan-500);
+  --color-accent-ink: var(--accent-ink);
   --color-danger: var(--danger);
 
   /* Typography */
@@ -63,12 +64,13 @@
   color-scheme: dark;
   --background: #000000;
   --surface: #0a0a0a;
-  --foreground: #cccccc;
+  --foreground: #d0d0d0;
   --foreground-strong: #ffffff;
-  --muted: #4c4c4c;
-  --hairline: rgba(255, 255, 255, 0.12);
+  --muted: #969696; /* WCAG AA on black (~6.5:1) — was #4c4c4c (illisible) */
+  --hairline: rgba(255, 255, 255, 0.14);
   --logo-ink: #ffffff; /* teal disappears on black → white mark on dark */
-  --danger: #ff6b6b;
+  --accent-ink: #46cadd; /* accent for TEXT — bright cyan, AA on black */
+  --danger: #ff7a7a;
 }
 
 [data-theme="light"] {
@@ -77,10 +79,11 @@
   --surface: #f5f3ee;
   --foreground: #26241f;
   --foreground-strong: #0a0a0a;
-  --muted: #8a857b;
-  --hairline: rgba(0, 0, 0, 0.14);
+  --muted: #5c5c5c; /* WCAG AA on white (~6.7:1) — was #8a857b (échouait) */
+  --hairline: rgba(0, 0, 0, 0.16);
   --logo-ink: #173c34; /* deep teal mark on light */
-  --danger: #d92d20;
+  --accent-ink: #0f7c8f; /* accent for TEXT — darker teal, AA (~4.9:1) on white */
+  --danger: #c92a20;
 }
 
 /* ------------------------------------------------------------------ */

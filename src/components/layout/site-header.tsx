@@ -97,8 +97,8 @@ export function SiteHeader() {
                     onClick={() => setOpen(false)}
                     className={`block py-2 text-[1.75rem] font-medium tracking-tight transition-colors ${
                       isActive(l.href)
-                        ? "text-accent"
-                        : "text-foreground-strong hover:text-accent"
+                        ? "text-accent-ink"
+                        : "text-foreground-strong hover:text-accent-ink"
                     }`}
                     aria-current={isActive(l.href) ? "page" : undefined}
                   >

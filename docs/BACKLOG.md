@@ -132,6 +132,20 @@ Objectif : niveau studio primé, prêt à présenter/déployer.
 | S6-9 | Chatbot → Gemini (réponses génératives) | S | ☐ (clé à régénérer) |
 | S6-10 | Notifications email (contact/newsletter) + envoi reset | S | ☐ (⛔ email) |
 
+## Inbox — Améliorations remontées (à prioriser par l'orchestrateur)
+> Alimentée en continu par les agents **designer** et **ux-engineer** lors de leurs supervisions. L'orchestrateur classe par priorité et bascule vers un sprint.
+
+| Source | Constat | Prio (orch.) | Statut |
+|--------|---------|--------------|--------|
+| designer | Lisibilité WCAG : `muted`/`graphite` illisibles en dark → corrigé (AA), accent en texte via `accent-ink` | M | ☑ |
+| ux-engineer | Documentation : passer en accordéon FAQ (déroulant) | M | ☑ |
+| designer | Backoffice : ajouter le toggle dark/light | M | ☑ |
+| designer | **Audit WCAG complet** (toutes pages, dark+light) : contrastes restants, états focus custom (glass/lamp), placeholders | M | ☐ |
+| ux-engineer | Vérifier `focus-visible` visible sur GlassButton, LampNav, chatbot, accordéon | M | ☐ |
+| designer | **Image OpenGraph** (`/opengraph-image`) + favicon depuis le logo officiel | S | ☐ (⛔ logo) |
+| ux-engineer | `prefers-reduced-motion` : re-vérifier orb, robot Spline, lamp, accordéon | S | ☐ |
+| designer | Mode light : audit visuel complet de toutes les pages (S4-4) | M | ☐ |
+
 ## Backlog transverse (continu)
 - Verrou anti-régression : maintenir `LESSONS.md` à chaque correction. (orchestrator)
 - Cohérence design tokens : aucun magic number hors tokens. (designer)

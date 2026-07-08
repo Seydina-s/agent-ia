@@ -38,10 +38,10 @@ export function SiteFooter() {
       </div>
 
       <div className="container-page flex flex-col gap-2 border-t border-hairline py-6 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-caption uppercase tracking-wide text-graphite">
+        <p className="text-caption uppercase tracking-wide text-muted">
           © {year} Agent AI — Dakar, Sénégal
         </p>
-        <p className="text-caption uppercase tracking-wide text-graphite">
+        <p className="text-caption uppercase tracking-wide text-muted">
           Conçu pour agir
         </p>
       </div>

@@ -45,7 +45,7 @@ export function Logo({
       <LogoMark className="h-8 w-8 shrink-0" />
       {wordmark && (
         <span className="text-lg font-medium tracking-tight text-[color:var(--logo-ink)]">
-          Agent<span className="text-accent"> AI</span>
+          Agent<span className="text-accent-ink"> AI</span>
         </span>
       )}
     </Link>

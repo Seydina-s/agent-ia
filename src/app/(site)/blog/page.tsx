@@ -34,14 +34,14 @@ export default function BlogPage() {
                 className="group grid gap-4 border-t border-hairline py-10 transition-colors hover:bg-surface sm:grid-cols-[0.4fr_1fr] sm:gap-12 sm:py-12"
               >
                 <div className="flex flex-col gap-2 text-body-sm text-muted">
-                  <span className="uppercase tracking-wide text-accent">
+                  <span className="uppercase tracking-wide text-accent-ink">
                     {a.tag}
                   </span>
                   <span>{formatDate(a.date)}</span>
                   <span>{a.readingMinutes} min de lecture</span>
                 </div>
                 <div>
-                  <h2 className="heading text-balance transition-colors group-hover:text-accent">
+                  <h2 className="heading text-balance transition-colors group-hover:text-accent-ink">
                     {a.title}
                   </h2>
                   <p className="mt-4 max-w-2xl leading-relaxed text-foreground">
@@ -51,7 +51,7 @@ export default function BlogPage() {
                     Lire l&apos;article
                     <span
                       aria-hidden
-                      className="text-accent transition-transform duration-200 group-hover:translate-x-1"
+                      className="text-accent-ink transition-transform duration-200 group-hover:translate-x-1"
                     >
                       →
                     </span>

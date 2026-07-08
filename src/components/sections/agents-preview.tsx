@@ -49,7 +49,7 @@ export function AgentsPreview() {
                   </span>
                   <span
                     aria-hidden
-                    className="text-accent transition-transform duration-200 group-hover:translate-x-1"
+                    className="text-accent-ink transition-transform duration-200 group-hover:translate-x-1"
                   >
                     →
                   </span>

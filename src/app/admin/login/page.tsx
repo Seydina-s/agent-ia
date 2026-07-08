@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { hasAdmin } from "@/lib/auth/actions";
 import { getSession } from "@/lib/auth/session";
 import { AuthForm } from "@/components/admin/auth-form";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export const dynamic = "force-dynamic";
 
@@ -10,7 +11,10 @@ export default async function AdminLoginPage() {
   const setup = !(await hasAdmin());
 
   return (
-    <main className="grid min-h-dvh place-items-center px-5 py-16">
+    <main className="relative grid min-h-dvh place-items-center px-5 py-16">
+      <div className="absolute right-5 top-5">
+        <ThemeToggle />
+      </div>
       <div className="w-full max-w-sm">
         <p className="eyebrow">Agent AI · Backoffice</p>
         <h1 className="heading mt-4">

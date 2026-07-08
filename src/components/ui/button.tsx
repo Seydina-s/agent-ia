@@ -18,7 +18,7 @@ const variants: Record<Variant, string> = {
   ghost:
     "text-foreground hover:text-foreground-strong underline-offset-4 hover:underline px-0",
   outline:
-    "border border-hairline text-foreground-strong hover:border-accent hover:text-accent",
+    "border border-hairline text-foreground-strong hover:border-accent hover:text-accent-ink",
 };
 
 type CommonProps = {

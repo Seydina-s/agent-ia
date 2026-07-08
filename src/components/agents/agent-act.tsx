@@ -81,7 +81,7 @@ export function AgentAct({
 
           <m.p
             variants={beat}
-            className="mt-3 text-body-sm uppercase tracking-wide text-accent"
+            className="mt-3 text-body-sm uppercase tracking-wide text-accent-ink"
           >
             {agent.role}
           </m.p>

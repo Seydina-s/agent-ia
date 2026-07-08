@@ -30,6 +30,13 @@ Après **chaque tâche livrée**, l'orchestrateur mène une passe de supervision
 5. **Boucler** : créer/assigner les correctifs relevés ; toute erreur corrigée → `docs/LESSONS.md` (verrou).
 Cette supervision est **régulière et permanente** : elle assure une amélioration continue du projet, tâche après tâche.
 
+### Supervision par département (TOUS les agents)
+**Chaque agent** (designer, ux-engineer, copywriter, anti-ai-slop, et tout futur agent) mène une supervision **régulière de son propre département** pour que tout soit parfait, et **verse ses constats dans l'Inbox du `docs/BACKLOG.md`** (« Améliorations remontées »). L'orchestrateur :
+1. Collecte les entrées de l'Inbox.
+2. Les **classe par ordre de priorité** (M/S/C) selon l'urgence et l'impact.
+3. Les bascule dans un sprint et les assigne.
+Aucun constat pertinent ne doit rester hors du backlog. C'est le moteur de l'amélioration continue.
+
 ## Verrou anti-régression (le plus important)
 À chaque bug corrigé ou erreur évitée :
 1. Ajoute une entrée dans `docs/LESSONS.md` (symptôme → cause → correctif → règle de prévention).

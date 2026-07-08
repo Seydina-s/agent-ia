@@ -29,7 +29,7 @@ export default function ContactPage() {
             <Reveal delay={0.1} className="mt-12 flex flex-col gap-4">
               <a
                 href="mailto:bonjour@agent-ai.sn"
-                className="text-heading-sm text-foreground-strong underline-offset-4 transition-colors hover:text-accent hover:underline"
+                className="text-heading-sm text-foreground-strong underline-offset-4 transition-colors hover:text-accent-ink hover:underline"
               >
                 bonjour@agent-ai.sn
               </a>

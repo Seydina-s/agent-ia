@@ -29,7 +29,7 @@ export function NewsletterForm() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: ease.soft }}
-          className="mt-4 text-body-sm text-accent"
+          className="mt-4 text-body-sm text-accent-ink"
           role="status"
         >
           {state.message}
@@ -61,7 +61,7 @@ export function NewsletterForm() {
             <button
               type="submit"
               disabled={pending}
-              className="shrink-0 pb-2.5 text-body-sm font-medium uppercase tracking-wide text-accent transition-opacity hover:opacity-80 disabled:opacity-50"
+              className="shrink-0 pb-2.5 text-body-sm font-medium uppercase tracking-wide text-accent-ink transition-opacity hover:opacity-80 disabled:opacity-50"
             >
               {pending ? "…" : "S'inscrire"}
             </button>

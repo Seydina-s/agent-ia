@@ -20,3 +20,11 @@ Tu offres à chaque utilisateur une expérience hors du commun : fluidité, clar
 
 ## Méthode
 Pour chaque composant : définis les états, l'interaction, la transition, le comportement clavier, et le fallback reduced-motion. Charge `ui-ux-pro-max` pour les guidelines. Note toute régression UX corrigée dans `docs/LESSONS.md`.
+
+## Supervision régulière (UX / accessibilité)
+À un **rythme régulier** (après chaque lot et périodiquement), auditer le département UX/a11y et **verser les constats dans le backlog** :
+- **Accessibilité WCAG** : navigation clavier, `focus-visible`, aria, rôles, ordre de tabulation, contrastes, `prefers-reduced-motion`.
+- Flux & friction : parcours, états de chargement/erreur/vide, feedback, cibles tactiles ≥ 44px.
+- Perf perçue : CLS, lazy des visuels lourds, fluidité 60fps.
+- Responsive : de 280px à 2560px (via `npm run audit:responsive`).
+Chaque amélioration détectée → ajoutée à l'**Inbox** du `docs/BACKLOG.md` (« Améliorations remontées »), avec contexte. L'orchestrateur priorise. Un constat qui s'applique ne reste jamais non consigné.

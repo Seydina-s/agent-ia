@@ -20,8 +20,34 @@ export const metadata: Metadata = {
     template: "%s · Agent AI",
   },
   description:
-    "La première agence au Sénégal à mettre des agents IA autonomes au service des entreprises.",
+    "La première agence au Sénégal à concevoir des agents IA autonomes à 100% pour automatiser les métiers des entreprises.",
   applicationName: "Agent AI",
+  keywords: [
+    "agents IA autonomes",
+    "intelligence artificielle",
+    "automatisation entreprise",
+    "agence IA Sénégal",
+    "Dakar",
+    "chatbot",
+    "IA sur mesure",
+  ],
+  authors: [{ name: "Agent AI" }],
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    siteName: "Agent AI",
+    title: "Agent AI — Agents IA autonomes au Sénégal",
+    description:
+      "Des agents IA autonomes à 100% pour automatiser les métiers de votre entreprise.",
+    url: "https://agent-ai.sn",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Agent AI — Agents IA autonomes au Sénégal",
+    description:
+      "Des agents IA autonomes à 100% pour automatiser les métiers de votre entreprise.",
+  },
+  alternates: { canonical: "/" },
 };
 
 export const viewport: Viewport = {

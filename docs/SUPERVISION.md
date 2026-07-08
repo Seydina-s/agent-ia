@@ -35,4 +35,9 @@ Format :
 - **Contrôles** : build ✅ · lint ✅ · middleware redirect ✅ · flux auth complet (setup→dashboard→logout→lockout→login) **testé sur branche éphémère** ✅ · DB round-trip formulaires ✅ (vérifié via SQL).
 - **Suivis (Sprint 6 suite)** : mot de passe oublié/reset (⛔ nécessite email), CMS articles + upload images, analytics (logging page_views + dashboard), chatbot→Gemini (clé à régénérer). 2 lignes de test en base (1 message, 1 abonné) — à purger sur demande.
 
+## [2026-07-08] — Lisibilité WCAG, doc accordéon, toggle admin, SEO, process supervision · ✅
+- **Livré** : couleurs `muted` AA (dark #969696 ≈ 6.5:1, light #5c5c5c ≈ 6.7:1) + `accent-ink` adaptatif pour le texte d'accent (bright cyan sur noir, teal foncé AA sur blanc) ; documentation en **accordéon FAQ** (aria-expanded/controls, contenu dans le DOM → SEO) ; **toggle dark/light dans le backoffice** (login + dashboard) ; SEO (`sitemap.xml`, `robots.txt` bloquant /admin & /api, OpenGraph/Twitter, JSON-LD Organization) ; **process** : supervision régulière de **tous** les agents → Inbox du backlog, priorisée par l'orchestrateur.
+- **Contrôles** : build ✅ · lint ✅ · console ✅ (JSON-LD sans erreur) · responsive ✅ (0px 280→1440) · accordéon ✅ · contraste muted ≈ 6.5:1 (AA).
+- **Suivis** (Inbox backlog) : audit WCAG complet toutes pages, focus-visible custom, image OG (⛔ logo), reduced-motion re-check, audit light complet.
+
 <!-- Nouvelles entrées au-dessus de cette ligne. -->

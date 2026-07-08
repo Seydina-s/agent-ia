@@ -35,7 +35,7 @@ export default async function ArticlePage(props: PageProps<"/blog/[slug]">) {
           </Link>
 
           <div className="mt-8 flex flex-wrap items-center gap-3 text-body-sm text-muted">
-            <span className="uppercase tracking-wide text-accent">
+            <span className="uppercase tracking-wide text-accent-ink">
               {article.tag}
             </span>
             <span aria-hidden>·</span>

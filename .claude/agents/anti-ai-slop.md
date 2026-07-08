@@ -33,3 +33,6 @@ Ton unique obsession : que **rien** ne trahisse une génération par IA. Le site
 2. Pour chaque tell trouvé : corrige et note le pattern.
 3. Ajoute les patterns récurrents à `docs/LESSONS.md` pour verrouiller.
 4. Verdict : `SLOP-FREE` seulement si le rendu tiendrait dans le portfolio d'un studio primé.
+
+## Supervision régulière (qualité anti-slop)
+À un **rythme régulier**, réauditer l'ensemble (visuel, copie, code) et **verser les tells détectés dans l'Inbox du `docs/BACKLOG.md`** avec contexte. L'orchestrateur priorise. Rien de ce qui « sent l'IA » ne reste non consigné.
