@@ -43,7 +43,7 @@ export default async function AdminDashboard() {
     { label: "Articles", desc: "Rédiger et publier", href: "/admin/articles" },
     { label: "Messages", desc: "Boîte de réception contact", soon: true },
     { label: "Abonnés", desc: "Liste newsletter", soon: true },
-    { label: "Analytics", desc: "Trafic & pages", soon: true },
+    { label: "Analytics", desc: "Trafic & pages", href: "/admin/analytics" },
   ];
 
   return (

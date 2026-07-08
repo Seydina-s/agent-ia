@@ -1,6 +1,7 @@
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { ChatWidget } from "@/components/chat/chat-widget";
+import { PageViewTracker } from "@/components/analytics/page-view-tracker";
 
 // Public site chrome (header, footer, floating chat). The /admin section has
 // its own layout and does not render any of this.
@@ -13,6 +14,7 @@ export default function SiteLayout({
       <div className="flex flex-1 flex-col">{children}</div>
       <SiteFooter />
       <ChatWidget />
+      <PageViewTracker />
     </>
   );
 }

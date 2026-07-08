@@ -45,4 +45,9 @@ Format :
 - **Chatbot → Gemini** : `/api/chat` tente Gemini (gemini-2.0-flash) puis **repli automatique** sur le moteur de règles. Clé valide (auth OK) mais **quota gratuit actuellement dépassé (429)** → repli actif ; réponses de secours vérifiées et pertinentes.
 - **Suivis** : quota Gemini à surveiller (per-minute vs daily) ; éditeur riche Tiptap + upload Cloudinary (améliorations) ; analytics (S6-8) ; reset password + emails (⛔ domaine/Resend).
 
+## [2026-07-08] — Sprint 6 : Analytics maison · ✅
+- **Livré** : tracking des vues 100% maison (`/api/track` + `PageViewTracker` dans le layout public), **sans cookies ni PII**, filtre bots, exclut `/admin` ; dashboard `/admin/analytics` (totaux, graphe 14j, top pages, appareils, sources) ; carte reliée au dashboard. Portable Hostinger VPS (aucune dépendance externe).
+- **Contrôles** : build ✅ · lint ✅ · **tracking vérifié** (8 vues, 6 pages, device détecté en base) · page analytics **200** avec données réelles.
+- **Suivis** : tracking des clics CTA (extension), reset password + emails (⛔ domaine/Resend), déploiement Hostinger.
+
 <!-- Nouvelles entrées au-dessus de cette ligne. -->
