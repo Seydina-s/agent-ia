@@ -42,21 +42,21 @@ const faqs: Faq[] = [
       .join(", ")}. Dites-moi un domaine (vente, marketing, SEO, support, finance…) et je vous oriente.`,
   },
   {
-    keys: ["prix", "tarif", "cout", "combien ca coute", "devis", "budget"],
+    keys: ["service", "offre", "proposez", "faites", "faire", "prestation"],
+    answer:
+      "Nous concevons et déployons des agents IA autonomes pour vos métiers : relation client, marketing, SEO, vente, support, finance, juridique, RH, data… Décrivez votre besoin et je vous dis quel agent s'en charge.",
+  },
+  {
+    keys: ["prix", "tarif", "cout", "coute", "devis", "budget"],
     answer: `Les tarifs dépendent de vos besoins et des agents mobilisés. Le plus simple : écrivez-nous à ${company.email} ou via la page Contact, on revient vers vous sous 24h avec une proposition.`,
   },
   {
-    keys: ["contact", "joindre", "email", "mail", "telephone", "rendez", "parler"],
+    keys: ["contact", "joindre", "email", "mail", "telephone", "rendez-vous", "parler a"],
     answer: `Écrivez-nous à ${company.email} ou passez par la page Contact — réponse sous 24h.`,
   },
   {
-    keys: ["ou", "senegal", "dakar", "adresse", "localis"],
+    keys: ["senegal", "dakar", "adresse", "localis", "bureau", "situe"],
     answer: `Nous sommes basés à ${company.city}, et nous accompagnons les entreprises à distance.`,
-  },
-  {
-    keys: ["service", "offre", "proposez", "faites quoi"],
-    answer:
-      "Nous concevons et déployons des agents IA autonomes pour vos métiers : relation client, marketing, SEO, vente, support, finance, juridique, RH, data… Décrivez votre besoin et je vous dis quel agent s'en charge.",
   },
 ];
 

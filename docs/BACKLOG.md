@@ -127,9 +127,9 @@ Objectif : niveau studio primé, prêt à présenter/déployer.
 | S6-4 | Dashboard `/admin` (métriques réelles) + déconnexion | M | ☑ |
 | S6-5 | Formulaires contact + newsletter stockés en base | M | ☑ |
 | S6-6 | Mot de passe oublié + reset par email | M | ☐ (⛔ email) |
-| S6-7 | CMS articles (éditeur Tiptap, brouillon/publié) + upload images (Cloudinary) | M | ☐ |
+| S6-7 | CMS articles (brouillon/publié, éditeur, image par URL) + blog sur base | M | ☑ (Tiptap/Cloudinary = améliorations futures) |
 | S6-8 | Analytics : logging `page_views` + dashboard trafic/pages | M | ☐ |
-| S6-9 | Chatbot → Gemini (réponses génératives) | S | ☐ (clé à régénérer) |
+| S6-9 | Chatbot → Gemini (réponses génératives) + repli règles | S | ☑ (⚠️ quota gratuit à surveiller) |
 | S6-10 | Notifications email (contact/newsletter) + envoi reset | S | ☐ (⛔ email) |
 
 ## Inbox — Améliorations remontées (à prioriser par l'orchestrateur)

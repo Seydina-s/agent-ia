@@ -33,7 +33,10 @@
       "mcp__Neon__create_branch",
       "mcp__Neon__get_connection_string",
       "Bash(node scripts/seed-articles.mjs)",
-      "Bash(git rm *)"
+      "Bash(git rm *)",
+      "Bash(curl -s -o /tmp/g1.json -w 'HTTP %{http_code}\\\\n' https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=__TRACKED_VAR__ -H 'Content-Type: application/json' -d '{\"contents\":[{\"parts\":[{\"text\":\"Dis bonjour en un mot.\"}]}]}')",
+      "Bash(curl -s -o /tmp/g2.json -w 'HTTP %{http_code}\\\\n' https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent -H 'Authorization: Bearer __TRACKED_VAR__' -H 'Content-Type: application/json' -d '{\"contents\":[{\"parts\":[{\"text\":\"Dis bonjour en un mot.\"}]}]}')",
+      "Bash(node -e ' *)"
     ]
   }
 }

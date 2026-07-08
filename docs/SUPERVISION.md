@@ -40,4 +40,9 @@ Format :
 - **Contrôles** : build ✅ · lint ✅ · console ✅ (JSON-LD sans erreur) · responsive ✅ (0px 280→1440) · accordéon ✅ · contraste muted ≈ 6.5:1 (AA).
 - **Suivis** (Inbox backlog) : audit WCAG complet toutes pages, focus-visible custom, image OG (⛔ logo), reduced-motion re-check, audit light complet.
 
+## [2026-07-08] — Sprint 6 : CMS articles + chatbot Gemini · ✅
+- **CMS** : articles en base, éditables depuis `/admin/articles` (créer/éditer/publier/dépublier/supprimer), blog public sur DB, 3 articles seed migrés. Cycle complet testé (login→créer→publier→/blog) sur branche éphémère ; blog principal = 3 articles ; 0 erreur console ; build/lint clean.
+- **Chatbot → Gemini** : `/api/chat` tente Gemini (gemini-2.0-flash) puis **repli automatique** sur le moteur de règles. Clé valide (auth OK) mais **quota gratuit actuellement dépassé (429)** → repli actif ; réponses de secours vérifiées et pertinentes.
+- **Suivis** : quota Gemini à surveiller (per-minute vs daily) ; éditeur riche Tiptap + upload Cloudinary (améliorations) ; analytics (S6-8) ; reset password + emails (⛔ domaine/Resend).
+
 <!-- Nouvelles entrées au-dessus de cette ligne. -->
