@@ -21,8 +21,13 @@ export async function subscribeNewsletter(
     return { status: "error", message: "Entrez un email valide." };
   }
 
-  // TODO: brancher le provider (Mailchimp/Brevo/…) — voir docs/ASSETS.md.
-  console.log("[newsletter] nouvel abonné", email);
+  // Stocké en base (consultable dans /admin). Sync provider (Brevo…) : plus tard.
+  const { sql } = await import("@/lib/db");
+  await sql`
+    insert into newsletter_subscribers (email)
+    values (${email.toLowerCase()})
+    on conflict (email) do nothing
+  `;
 
   return {
     status: "success",

@@ -118,6 +118,20 @@ Objectif : niveau studio primé, prêt à présenter/déployer.
 | S5-5 | Newsletter + Contact : **livraison réelle** (Brevo/Mailchimp/email) | S | ☐ |
 | S5-6 | Nav + footer : intégrer les nouvelles pages une fois créées | M | ☐ |
 
+## Sprint 6 — Backoffice `/admin` (en cours)
+| ID | Tâche | Prio | Statut |
+|----|-------|------|--------|
+| S6-1 | Neon Postgres provisionné + schéma | M | ☑ |
+| S6-2 | Sécurité : requêtes paramétrées, en-têtes, route group `(site)` isolé | M | ☑ |
+| S6-3 | Auth : session (jose), bcrypt, rate-limit 3 essais/60s, first-run setup, middleware | M | ☑ |
+| S6-4 | Dashboard `/admin` (métriques réelles) + déconnexion | M | ☑ |
+| S6-5 | Formulaires contact + newsletter stockés en base | M | ☑ |
+| S6-6 | Mot de passe oublié + reset par email | M | ☐ (⛔ email) |
+| S6-7 | CMS articles (éditeur Tiptap, brouillon/publié) + upload images (Cloudinary) | M | ☐ |
+| S6-8 | Analytics : logging `page_views` + dashboard trafic/pages | M | ☐ |
+| S6-9 | Chatbot → Gemini (réponses génératives) | S | ☐ (clé à régénérer) |
+| S6-10 | Notifications email (contact/newsletter) + envoi reset | S | ☐ (⛔ email) |
+
 ## Backlog transverse (continu)
 - Verrou anti-régression : maintenir `LESSONS.md` à chaque correction. (orchestrator)
 - Cohérence design tokens : aucun magic number hors tokens. (designer)

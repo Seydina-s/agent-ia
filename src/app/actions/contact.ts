@@ -35,9 +35,13 @@ export async function submitContact(
     return { status: "error", errors, values };
   }
 
-  // TODO: brancher la livraison réelle (email/CRM) — voir docs/ASSETS.md.
-  // En attendant, on journalise côté serveur pour ne rien perdre.
-  console.log("[contact] nouveau message", { name, email, company, interest });
+  // Stocké en base (consultable dans /admin). Notification email : à brancher
+  // après connexion du domaine/Resend (voir docs/ASSETS.md).
+  const { sql } = await import("@/lib/db");
+  await sql`
+    insert into contact_messages (name, email, company, interest, message)
+    values (${name}, ${email}, ${company || null}, ${interest || null}, ${message})
+  `;
 
   return {
     status: "success",

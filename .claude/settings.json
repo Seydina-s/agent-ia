@@ -24,7 +24,14 @@
       "Bash(git checkout *)",
       "Bash(git add *)",
       "Bash(git commit *)",
-      "Bash(grep -vE '^\\\\s*$')"
+      "Bash(grep -vE '^\\\\s*$')",
+      "mcp__Neon__list_organizations",
+      "mcp__Neon__create_project",
+      "mcp__Neon__run_sql_transaction",
+      "Bash(git mv *)",
+      "mcp__Neon__run_sql",
+      "mcp__Neon__create_branch",
+      "mcp__Neon__get_connection_string"
     ]
   }
 }

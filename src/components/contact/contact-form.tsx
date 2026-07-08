@@ -2,7 +2,7 @@
 
 import { useActionState, useId, useState } from "react";
 import { m } from "motion/react";
-import { submitContact, type ContactState } from "@/app/contact/actions";
+import { submitContact, type ContactState } from "@/app/actions/contact";
 import { GlassButton } from "@/components/ui/glass-button";
 import { agents } from "@/lib/agents";
 import { ease } from "@/lib/motion";
