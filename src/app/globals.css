@@ -31,6 +31,7 @@
   --color-muted: var(--muted);
   --color-hairline: var(--hairline);
   --color-accent: var(--color-cyan-500);
+  --color-danger: var(--danger);
 
   /* Typography */
   --font-sui: var(--font-sui), ui-sans-serif, system-ui, -apple-system,
@@ -67,6 +68,7 @@
   --muted: #4c4c4c;
   --hairline: rgba(255, 255, 255, 0.12);
   --logo-ink: #ffffff; /* teal disappears on black → white mark on dark */
+  --danger: #ff6b6b;
 }
 
 [data-theme="light"] {
@@ -78,6 +80,7 @@
   --muted: #8a857b;
   --hairline: rgba(0, 0, 0, 0.14);
   --logo-ink: #173c34; /* deep teal mark on light */
+  --danger: #d92d20;
 }
 
 /* ------------------------------------------------------------------ */

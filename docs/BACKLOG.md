@@ -66,14 +66,14 @@ Objectif : convertir. Formulaire premium + copy orientée action.
 
 | ID | Tâche | Prio | Agent | Statut |
 |----|-------|------|-------|--------|
-| S3-1 | Copy contact : accroche + réassurance + micro-copy champs/CTA | M | copywriter | ☐ |
-| S3-2 | Formulaire hairline inputs (nom, email, message…), états focus/erreur | M | designer + ux-engineer | ☐ |
-| S3-3 | Validation client + accessibilité (labels, aria, clavier) | M | ux-engineer | ☐ |
-| S3-4 | Soumission : route handler / action (à définir : email, stockage ?) | S | orchestrator | ☐ |
-| S3-5 | États succès/erreur animés | S | ux-engineer | ☐ |
-| S3-6 | Responsive + passe anti-AI-slop | M | anti-ai-slop | ☐ |
+| S3-1 | Copy contact : accroche + réassurance + micro-copy champs/CTA | M | copywriter | ☑ |
+| S3-2 | Formulaire hairline inputs (nom, email, entreprise, intérêt, message), focus/erreur | M | designer + ux-engineer | ☑ |
+| S3-3 | Validation (server action) + accessibilité (labels, aria-invalid/describedby, clavier) + honeypot | M | ux-engineer | ☑ |
+| S3-4 | Soumission : **server action** (validation OK) — ⛔ livraison réelle email/CRM à brancher (endpoint requis) | S | orchestrator | ◐ |
+| S3-5 | États envoi/succès/erreur animés (useActionState) | S | ux-engineer | ☑ |
+| S3-6 | Responsive (0px overflow) + anti-AI-slop | M | anti-ai-slop | ☑ |
 
-**DoD Sprint 3** : contact fonctionnel, validé, premium.
+**DoD Sprint 3** : ✅ contact premium, validé de bout en bout (erreur + succès testés), responsive. Reste : brancher l'envoi réel (email/CRM) quand endpoint fourni.
 
 ---
 
