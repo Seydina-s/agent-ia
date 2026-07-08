@@ -4,7 +4,7 @@ import Link from "next/link";
 import { m } from "motion/react";
 import { agents } from "@/lib/agents";
 import { fadeUp, inView, stagger } from "@/lib/motion";
-import { Button } from "@/components/ui/button";
+import { GlassButton } from "@/components/ui/glass-button";
 
 export function AgentsPreview() {
   return (
@@ -18,9 +18,7 @@ export function AgentsPreview() {
               agir.
             </h2>
           </div>
-          <Button href="/agents" variant="outline" size="md">
-            Voir tous les agents
-          </Button>
+          <GlassButton href="/agents">Voir tous les agents</GlassButton>
         </div>
 
         <m.ul

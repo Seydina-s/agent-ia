@@ -1,12 +1,13 @@
 "use client";
 
-import { LazyMotion, domAnimation, MotionConfig } from "motion/react";
+import { LazyMotion, domMax, MotionConfig } from "motion/react";
 
-// Wraps the app once: lazy-loads the DOM animation feature bundle and
-// makes motion respect the OS "reduce motion" setting everywhere.
+// Wraps the app once: lazy-loads the DOM animation feature bundle (domMax so
+// layout animations like the navbar "lamp" layoutId work) and makes motion
+// respect the OS "reduce motion" setting everywhere.
 export function MotionProvider({ children }: { children: React.ReactNode }) {
   return (
-    <LazyMotion features={domAnimation} strict>
+    <LazyMotion features={domMax} strict>
       <MotionConfig reducedMotion="user">{children}</MotionConfig>
     </LazyMotion>
   );

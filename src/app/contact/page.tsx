@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Button } from "@/components/ui/button";
+import { GlassButton } from "@/components/ui/glass-button";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -22,9 +22,9 @@ export default function ContactPage() {
         </p>
 
         <div className="mt-12 flex flex-wrap items-center gap-6">
-          <Button href="mailto:bonjour@agent-ai.sn" size="lg">
+          <GlassButton href="mailto:bonjour@agent-ai.sn" size="lg">
             bonjour@agent-ai.sn
-          </Button>
+          </GlassButton>
           <span className="text-body-sm text-muted">
             Formulaire complet — bientôt disponible.
           </span>

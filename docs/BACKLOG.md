@@ -49,15 +49,15 @@ Objectif : présenter les 9 agents avec l'animation signature.
 
 | ID | Tâche | Prio | Agent | Statut |
 |----|-------|------|-------|--------|
-| S2-1 | Données agents : structure `src/lib/agents.ts` (nom, rôle, capacité, avatar) — 9 agents | M | orchestrator + copywriter | ☐ |
-| S2-2 | Copy par agent : rôle + résumé de capacité (Abdoulaye…Modou), humanisé | M | copywriter | ☐ |
-| S2-3 | Grille/liste agents (cartes transparentes, edge-to-edge) | M | designer | ☐ |
-| S2-4 | **Bulle scroll** : 1er scroll révèle l'avatar, 2e scroll révèle le résumé de capacité (fluide) | M | ux-engineer + designer | ☐ |
-| S2-5 | Avatars : placeholders élégants (⛔ dépend des vraies images) | M | designer | ⛔ |
-| S2-6 | Responsive + reduced-motion de la page agents | M | ux-engineer | ☐ |
-| S2-7 | Passe anti-AI-slop | M | anti-ai-slop | ☐ |
+| S2-1 | Données agents : structure `src/lib/agents.ts` (nom, rôle, capacité, avatar) — 10 agents | M | orchestrator + copywriter | ☑ |
+| S2-2 | Copy par agent : rôle + résumé de capacité (10 agents), humanisé | M | copywriter | ☑ |
+| S2-3 | Actes agents (sections transparentes, layout alterné, edge-to-edge) | M | designer | ☑ |
+| S2-4 | **Bulle scroll** : l'avatar (bulle) se révèle d'abord, puis le résumé (stagger fluide) + barre de progression | M | ux-engineer + designer | ☑ |
+| S2-5 | Avatars : placeholders élégants (bulle obsidienne + monogramme, écho de l'orb) — ⛔ vraies images à venir | M | designer | ◐ |
+| S2-6 | Responsive (320→2560, 0px overflow vérifié) + reduced-motion (MotionConfig) | M | ux-engineer | ☑ |
+| S2-7 | Passe anti-AI-slop | M | anti-ai-slop | ☑ |
 
-**DoD Sprint 2** : les 9 agents affichés avec l'animation bulle, responsive, dark+light.
+**DoD Sprint 2** : ✅ les 10 agents en scroll « avatar puis description », responsive, build/lint clean. Reste : vraies images d'avatars (S2-5 ◐), audit mode light (S4).
 
 ---
 
@@ -87,6 +87,7 @@ Objectif : niveau studio primé, prêt à présenter/déployer.
 | S4-3 | Chorégraphie motion cohérente inter-pages (transitions de page) | S | ux-engineer | ☐ |
 | S4-3b | Upgrade orb signature en WebGL (obsidienne liquide) — remplace la version CSS | C | designer + ux-engineer | ☐ |
 | S4-4 | Parité light mode auditée sur toutes les pages | M | designer | ☐ |
+| S4-4b | État scrollé du header (léger scrim/backdrop-blur pour lisibilité au scroll) | S | ux-engineer | ☐ |
 | S4-5 | Accessibilité : audit AA, clavier, focus-visible, reduced-motion | M | ux-engineer | ☐ |
 | S4-6 | Perf : Lighthouse, lazy visuels lourds, pas de CLS, images optimisées | M | ux-engineer | ☐ |
 | S4-7 | SEO/metadata : OpenGraph, favicon, titres, `lang`, sitemap | S | orchestrator | ☐ |

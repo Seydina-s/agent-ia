@@ -21,7 +21,9 @@
       "Bash(cp \"/c/Users/HP/AppData/Local/Temp/claude/c--Users-HP-agent-ia/af042a41-d2ce-4b7e-ac8a-965a958cf309/scratchpad/audit.mjs\" /c/Users/HP/agent-ia/_audit.mjs)",
       "Bash(node /c/Users/HP/agent-ia/_audit.mjs \"http://localhost:3000/\" 320)",
       "Bash(taskkill //F //IM chrome.exe //T)",
-      "Bash(git checkout *)"
+      "Bash(git checkout *)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
     ]
   }
 }

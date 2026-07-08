@@ -5,8 +5,9 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, m } from "motion/react";
 import { Logo } from "@/components/brand/logo";
-import { Button } from "@/components/ui/button";
+import { GlassButton } from "@/components/ui/glass-button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { LampNav } from "@/components/layout/lamp-nav";
 import { ease } from "@/lib/motion";
 
 const links = [
@@ -40,27 +41,12 @@ export function SiteHeader() {
       <div className="container-page flex h-18 items-center justify-between">
         <Logo />
 
-        {/* Desktop nav */}
-        <nav className="hidden items-center gap-8 md:flex">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              aria-current={isActive(l.href) ? "page" : undefined}
-              className={`text-body-sm transition-colors hover:text-foreground-strong ${
-                isActive(l.href) ? "text-foreground-strong" : "text-foreground"
-              }`}
-            >
-              {l.label}
-            </Link>
-          ))}
-        </nav>
+        {/* Desktop nav — glass pill with the "lamp" on the active page */}
+        <LampNav className="hidden md:flex" />
 
         <div className="hidden items-center gap-3 md:flex">
           <ThemeToggle />
-          <Button href="/contact" size="md">
-            Nous contacter
-          </Button>
+          <GlassButton href="/contact">Nous contacter</GlassButton>
         </div>
 
         {/* Mobile trigger */}
@@ -114,9 +100,9 @@ export function SiteHeader() {
                 </m.div>
               ))}
               <div className="mt-8 flex items-center gap-3">
-                <Button href="/contact" size="lg" onClick={() => setOpen(false)}>
+                <GlassButton href="/contact" size="lg" onClick={() => setOpen(false)}>
                   Nous contacter
-                </Button>
+                </GlassButton>
                 <ThemeToggle />
               </div>
             </nav>

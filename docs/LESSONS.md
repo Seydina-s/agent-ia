@@ -48,4 +48,16 @@ Format d'une entrée :
 
 ---
 
+## L-005 — Effets premium (glass/glow/Spline) : dérogation assumée à DESIGN.md · 2026-07-08
+- **Symptôme** : DESIGN.md interdit glassmorphisme, glows et ombres ; l'agent anti-ai-slop traque le « glass gratuit ».
+- **Cause** : le client demande explicitement des boutons glacials (glassmorphisme), une lamp-nav lumineuse et un robot 3D interactif.
+- **Correctif** : composants `GlassButton` (`.glass-button*`), `LampNav` (layoutId "lamp"), `HeroRobot` (Spline). Palette teal/cyan respectée.
+- **Règle de prévention (verrou)** :
+  - **La préférence explicite du client prime sur DESIGN.md.** Ces effets sont voulus — ne pas les « corriger » comme du slop.
+  - `layoutId` (lamp) nécessite **`domMax`** dans `LazyMotion` (pas `domAnimation`). Toujours `m.*` (strict).
+  - Le glass doit rester lisible et adapté **dark + light** (voir `[data-theme="light"] .glass-button`).
+  - Robot hero = scène Spline **externe** (`hero-robot.tsx`), chargée client-side lazy ; scène swappable, voir `docs/ASSETS.md`. Desktop uniquement (curseur) ; orb en fallback mobile.
+
+---
+
 <!-- Ajouter les nouvelles leçons au-dessus de cette ligne, plus récente en haut. -->

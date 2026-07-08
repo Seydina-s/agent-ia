@@ -2,7 +2,9 @@
 
 import { m } from "motion/react";
 import { Button } from "@/components/ui/button";
+import { GlassButton } from "@/components/ui/glass-button";
 import { SignatureOrb } from "@/components/visual/signature-orb";
+import { HeroRobot } from "@/components/visual/hero-robot";
 import { agentCount } from "@/lib/agents";
 import { ease } from "@/lib/motion";
 
@@ -18,13 +20,14 @@ const rise = {
 export function Hero() {
   return (
     <section className="relative overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-28">
-      {/* Orb — behind the type on mobile, to the right on desktop */}
-      <div className="pointer-events-none absolute inset-0">
-        <SignatureOrb className="absolute right-[-22%] top-[8%] w-[85%] opacity-40 sm:right-[-6%] sm:top-1/2 sm:w-[46%] sm:-translate-y-1/2 sm:opacity-100 lg:right-[2%] lg:w-[42%]" />
+      {/* Orb backdrop on mobile/tablet (robot replaces it on desktop) */}
+      <div className="pointer-events-none absolute inset-0 lg:hidden">
+        <SignatureOrb className="absolute right-[-22%] top-[8%] w-[85%] opacity-40 sm:right-[-6%] sm:top-1/2 sm:w-[46%] sm:-translate-y-1/2 sm:opacity-100" />
       </div>
 
-      <div className="container-page relative">
-        <m.p
+      <div className="container-page relative grid items-center gap-10 lg:grid-cols-[1fr_0.85fr] lg:gap-12">
+        <div>
+          <m.p
           custom={0}
           variants={rise}
           initial="hidden"
@@ -62,13 +65,19 @@ export function Hero() {
           animate="visible"
           className="mt-10 flex flex-wrap items-center gap-4"
         >
-          <Button href="/agents" size="lg">
+          <GlassButton href="/agents" size="lg">
             Rencontrer les agents
-          </Button>
+          </GlassButton>
           <Button href="/contact" variant="ghost" size="lg">
             Parler à un humain
           </Button>
         </m.div>
+        </div>
+
+        {/* Interactive 3D robot (desktop) — follows the cursor */}
+        <div className="relative hidden h-[560px] lg:block">
+          <HeroRobot className="absolute inset-0" />
+        </div>
       </div>
     </section>
   );

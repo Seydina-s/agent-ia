@@ -1,5 +1,5 @@
 import { Reveal } from "@/components/motion/reveal";
-import { Button } from "@/components/ui/button";
+import { GlassButton } from "@/components/ui/glass-button";
 
 export function ClosingCta() {
   return (
@@ -13,9 +13,9 @@ export function ClosingCta() {
             Dites-nous ce qui vous ralentit. On vous montre quel agent s&apos;en
             charge — dès aujourd&apos;hui.
           </p>
-          <Button href="/contact" size="lg">
+          <GlassButton href="/contact" size="lg">
             Démarrer la conversation
-          </Button>
+          </GlassButton>
         </Reveal>
       </div>
     </section>
