@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/brand/logo";
+import { NewsletterForm } from "@/components/newsletter/newsletter-form";
 
 const nav = [
   { href: "/", label: "Accueil" },
@@ -11,7 +12,7 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
   return (
     <footer className="border-t border-hairline">
-      <div className="container-page flex flex-col gap-10 py-14 sm:flex-row sm:items-end sm:justify-between">
+      <div className="container-page grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_1.2fr] lg:gap-16">
         <div className="flex flex-col gap-4">
           <Logo />
           <p className="max-w-xs text-body-sm text-muted">
@@ -19,7 +20,7 @@ export function SiteFooter() {
           </p>
         </div>
 
-        <nav className="flex flex-col gap-3 sm:items-end">
+        <nav className="flex flex-col gap-3">
           {nav.map((l) => (
             <Link
               key={l.href}
@@ -30,6 +31,8 @@ export function SiteFooter() {
             </Link>
           ))}
         </nav>
+
+        <NewsletterForm />
       </div>
 
       <div className="container-page flex flex-col gap-2 border-t border-hairline py-6 sm:flex-row sm:items-center sm:justify-between">

@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme/theme-provider";
 import { MotionProvider } from "@/components/motion/motion-provider";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { ChatWidget } from "@/components/chat/chat-widget";
 
 // Space Grotesk stands in for the custom `sui` face (geometric, 300–700).
 const sui = Space_Grotesk({
@@ -51,6 +52,7 @@ export default function RootLayout({
             <SiteHeader />
             <div className="flex flex-1 flex-col">{children}</div>
             <SiteFooter />
+            <ChatWidget />
           </MotionProvider>
         </ThemeProvider>
       </body>

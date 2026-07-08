@@ -18,8 +18,14 @@ export function Positioning() {
             équipe qui exécute — jour et nuit, sans relance, sans oubli.
           </p>
           <p className="mt-8 max-w-lg text-subheading leading-snug text-foreground">
-            Chaque agent maîtrise son métier et travaille seul. Vous gardez la
-            main sur la stratégie ; eux s&apos;occupent de tout le reste.
+            Nous concevons des{" "}
+            <span className="text-foreground-strong">
+              agents IA autonomes à 100%
+            </span>{" "}
+            pour les entreprises, pensés sur mesure pour leurs besoins
+            d&apos;automatisation. Chaque agent maîtrise son métier et travaille
+            seul — vous gardez la main sur la stratégie, eux s&apos;occupent du
+            reste.
           </p>
         </Reveal>
 

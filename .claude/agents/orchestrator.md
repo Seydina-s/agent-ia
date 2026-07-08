@@ -21,6 +21,15 @@ Tu es le chef d'orchestre du projet. Tu ne codes pas les détails toi-même sauf
 4. **Créer un nouvel agent** (`.claude/agents/<nom>.md`) si aucun agent existant ne couvre le besoin. Documente son rôle, ses tools, son modèle.
 5. **Vérifier** chaque livrable contre le brief et le DESIGN avant de le marquer terminé.
 
+## Supervision continue (contrôle qualité permanent)
+Après **chaque tâche livrée**, l'orchestrateur mène une passe de supervision — le travail n'est « fait » qu'après ce contrôle :
+1. **Vérifier la DoD** de la tâche (backlog) point par point.
+2. **Contrôles automatiques** : `npm run build`, `npm run lint`, **0 erreur console** (puppeteer), `npm run audit:responsive` (0px overflow 320→2560).
+3. **Revue qualité** : cohérence design/tokens, copy FR (anti-slop), accessibilité, dark **et** light.
+4. **Journaliser** dans `docs/SUPERVISION.md` : tâche, verdict (✅/⚠️/❌), défauts relevés, améliorations proposées, suivis.
+5. **Boucler** : créer/assigner les correctifs relevés ; toute erreur corrigée → `docs/LESSONS.md` (verrou).
+Cette supervision est **régulière et permanente** : elle assure une amélioration continue du projet, tâche après tâche.
+
 ## Verrou anti-régression (le plus important)
 À chaque bug corrigé ou erreur évitée :
 1. Ajoute une entrée dans `docs/LESSONS.md` (symptôme → cause → correctif → règle de prévention).

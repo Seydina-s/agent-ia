@@ -98,6 +98,26 @@ Objectif : niveau studio primé, prêt à présenter/déployer.
 
 ---
 
+## Sprint 4.5 — Améliorations (retour client 2026-07-08) ✅ / en cours
+| ID | Tâche | Prio | Statut |
+|----|-------|------|--------|
+| R-1 | Réduire la taille des titres (display 198→96px max) | M | ☑ |
+| R-2 | Responsive : combler les lacunes mobiles (audit 280→430 réels, 0px overflow) | M | ☑ |
+| R-3 | Newsletter dans le footer (globale, toutes pages) + validation | M | ☑ (livraison réelle ◐) |
+| R-4 | Chatbot flottant global (UI + base de connaissances locale + `/api/chat`) | M | ☑ (Claude API ◐) |
+| R-5 | Statement « agents IA autonomes à 100% pour les entreprises » | M | ☑ |
+| R-6 | Orchestrateur : supervision continue + `docs/SUPERVISION.md` | M | ☑ |
+
+## Sprint 5 — Nouvelles pages & contenu (planifié)
+| ID | Tâche | Prio | Statut |
+|----|-------|------|--------|
+| S5-1 | Page **Services** (détail de l'offre d'automatisation) | M | ☐ |
+| S5-2 | Page **Documentation** (glossaire des termes techniques de base) | M | ☐ |
+| S5-3 | Page **Blog** (actualités & articles) + structure de contenu | S | ☐ |
+| S5-4 | Chatbot → **Claude API** (réponses génératives) — nécessite clé | S | ☐ |
+| S5-5 | Newsletter + Contact : **livraison réelle** (Brevo/Mailchimp/email) | S | ☐ |
+| S5-6 | Nav + footer : intégrer les nouvelles pages une fois créées | M | ☐ |
+
 ## Backlog transverse (continu)
 - Verrou anti-régression : maintenir `LESSONS.md` à chaque correction. (orchestrator)
 - Cohérence design tokens : aucun magic number hors tokens. (designer)
