@@ -1,26 +1,28 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { articles, getArticle, formatDate } from "@/lib/articles";
+import {
+  getPublishedBySlug,
+  bodyToParagraphs,
+  formatDate,
+} from "@/lib/articles-db";
 import { Reveal } from "@/components/motion/reveal";
 import { GlassButton } from "@/components/ui/glass-button";
 
-export function generateStaticParams() {
-  return articles.map((a) => ({ slug: a.slug }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata(
   props: PageProps<"/blog/[slug]">
 ): Promise<Metadata> {
   const { slug } = await props.params;
-  const article = getArticle(slug);
+  const article = await getPublishedBySlug(slug);
   if (!article) return { title: "Article introuvable" };
   return { title: article.title, description: article.excerpt };
 }
 
 export default async function ArticlePage(props: PageProps<"/blog/[slug]">) {
   const { slug } = await props.params;
-  const article = getArticle(slug);
+  const article = await getPublishedBySlug(slug);
   if (!article) notFound();
 
   return (
@@ -38,10 +40,14 @@ export default async function ArticlePage(props: PageProps<"/blog/[slug]">) {
             <span className="uppercase tracking-wide text-accent-ink">
               {article.tag}
             </span>
+            {article.published_at && (
+              <>
+                <span aria-hidden>·</span>
+                <span>{formatDate(article.published_at)}</span>
+              </>
+            )}
             <span aria-hidden>·</span>
-            <span>{formatDate(article.date)}</span>
-            <span aria-hidden>·</span>
-            <span>{article.readingMinutes} min</span>
+            <span>{article.reading_minutes} min</span>
           </div>
 
           <h1 className="heading-lg mt-5 max-w-4xl text-balance normal-case">
@@ -50,8 +56,19 @@ export default async function ArticlePage(props: PageProps<"/blog/[slug]">) {
           <p className="mt-4 text-body-sm text-muted">Par {article.author}</p>
         </Reveal>
 
+        {article.cover_image_url && (
+          <Reveal delay={0.05} className="mt-10">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={article.cover_image_url}
+              alt={article.title}
+              className="w-full rounded-none border border-hairline object-cover"
+            />
+          </Reveal>
+        )}
+
         <Reveal delay={0.1} className="mt-12 flex max-w-2xl flex-col gap-6">
-          {article.body.map((p, i) => (
+          {bodyToParagraphs(article.body).map((p, i) => (
             <p key={i} className="text-lg leading-relaxed text-foreground">
               {p}
             </p>

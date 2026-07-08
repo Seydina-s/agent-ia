@@ -42,3 +42,13 @@ export async function getSession(): Promise<SessionPayload | null> {
 export async function clearSession() {
   (await cookies()).delete(SESSION_COOKIE);
 }
+
+// Defense-in-depth for server actions/pages: middleware already guards /admin,
+// but actions are directly reachable, so re-check here too.
+export async function requireAdmin(): Promise<SessionPayload> {
+  const session = await getSession();
+  if (session) return session;
+  const { redirect } = await import("next/navigation");
+  redirect("/admin/login"); // throws (NEXT_REDIRECT) — never returns
+  throw new Error("unreachable");
+}

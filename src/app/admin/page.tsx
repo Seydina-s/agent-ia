@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getSession } from "@/lib/auth/session";
 import { logout } from "@/lib/auth/actions";
 import { sql } from "@/lib/db";
@@ -39,7 +40,7 @@ export default async function AdminDashboard() {
   ];
 
   const sections = [
-    { label: "Articles", desc: "Rédiger et publier", soon: true },
+    { label: "Articles", desc: "Rédiger et publier", href: "/admin/articles" },
     { label: "Messages", desc: "Boîte de réception contact", soon: true },
     { label: "Abonnés", desc: "Liste newsletter", soon: true },
     { label: "Analytics", desc: "Trafic & pages", soon: true },
@@ -87,21 +88,40 @@ export default async function AdminDashboard() {
       <section className="mt-12">
         <h2 className="eyebrow">Gestion</h2>
         <div className="mt-5 grid gap-px overflow-hidden border border-hairline sm:grid-cols-2 lg:grid-cols-4">
-          {sections.map((s) => (
-            <div key={s.label} className="flex flex-col gap-2 bg-surface p-6">
-              <div className="flex items-center justify-between">
-                <span className="text-heading-sm font-medium text-foreground-strong">
-                  {s.label}
-                </span>
-                {s.soon && (
-                  <span className="rounded-pill border border-hairline px-2 py-0.5 text-caption uppercase tracking-wide text-muted">
-                    Bientôt
+          {sections.map((s) => {
+            const inner = (
+              <>
+                <div className="flex items-center justify-between">
+                  <span className="text-heading-sm font-medium text-foreground-strong">
+                    {s.label}
                   </span>
-                )}
+                  {s.soon ? (
+                    <span className="rounded-pill border border-hairline px-2 py-0.5 text-caption uppercase tracking-wide text-muted">
+                      Bientôt
+                    </span>
+                  ) : (
+                    <span aria-hidden className="text-accent-ink">
+                      →
+                    </span>
+                  )}
+                </div>
+                <span className="text-body-sm text-muted">{s.desc}</span>
+              </>
+            );
+            return s.href ? (
+              <Link
+                key={s.label}
+                href={s.href}
+                className="flex flex-col gap-2 bg-surface p-6 transition-colors hover:bg-hairline"
+              >
+                {inner}
+              </Link>
+            ) : (
+              <div key={s.label} className="flex flex-col gap-2 bg-surface p-6">
+                {inner}
               </div>
-              <span className="text-body-sm text-muted">{s.desc}</span>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
     </main>

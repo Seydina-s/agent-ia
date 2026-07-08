@@ -31,7 +31,9 @@
       "Bash(git mv *)",
       "mcp__Neon__run_sql",
       "mcp__Neon__create_branch",
-      "mcp__Neon__get_connection_string"
+      "mcp__Neon__get_connection_string",
+      "Bash(node scripts/seed-articles.mjs)",
+      "Bash(git rm *)"
     ]
   }
 }

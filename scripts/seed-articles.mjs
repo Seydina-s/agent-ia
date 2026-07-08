@@ -1,17 +1,19 @@
-// Seed articles. Later these come from the /admin CMS (DB); the shape stays
-// the same so pages don't change when we switch the source.
-export type Article = {
-  slug: string;
-  title: string;
-  excerpt: string;
-  date: string; // ISO
-  author: string;
-  readingMinutes: number;
-  tag: string;
-  body: string[]; // paragraphs
-};
+// One-off: seed the initial blog articles into Neon. Safe to re-run
+// (on conflict on slug → do nothing). Usage: node scripts/seed-articles.mjs
+import { readFileSync } from "node:fs";
+import { neon } from "@neondatabase/serverless";
 
-export const articles: Article[] = [
+// Load DATABASE_URL from .env.local if not already in the environment.
+if (!process.env.DATABASE_URL) {
+  try {
+    const env = readFileSync(new URL("../.env.local", import.meta.url), "utf8");
+    const m = env.match(/^DATABASE_URL="?([^"\n]+)"?/m);
+    if (m) process.env.DATABASE_URL = m[1];
+  } catch {}
+}
+const sql = neon(process.env.DATABASE_URL);
+
+const articles = [
   {
     slug: "senegal-pret-pour-les-agents-ia-autonomes",
     title: "Pourquoi le Sénégal est prêt pour les agents IA autonomes",
@@ -19,7 +21,7 @@ export const articles: Article[] = [
       "Connectivité en hausse, tissu de PME dynamique, jeunesse digitale : les conditions sont réunies pour une adoption rapide de l'IA au travail.",
     date: "2026-06-24",
     author: "L'équipe Agent AI",
-    readingMinutes: 4,
+    reading: 4,
     tag: "Vision",
     body: [
       "Longtemps, l'intelligence artificielle est restée une promesse lointaine pour les entreprises africaines. Ce temps est révolu. Au Sénégal, la connectivité progresse vite, une génération entière est née avec le smartphone, et des milliers de PME cherchent à faire plus avec moins.",
@@ -35,7 +37,7 @@ export const articles: Article[] = [
       "Répondre aux clients, publier sur les réseaux, relancer les prospects… Voici où commencer pour un impact immédiat.",
     date: "2026-06-30",
     author: "L'équipe Agent AI",
-    readingMinutes: 5,
+    reading: 5,
     tag: "Pratique",
     body: [
       "Automatiser ne veut pas dire tout bouleverser d'un coup. Les meilleurs résultats viennent souvent des tâches simples, fréquentes et chronophages. En voici cinq à confier dès maintenant.",
@@ -54,7 +56,7 @@ export const articles: Article[] = [
       "L'autonomie des agents rime avec transparence et garde-fous. On vous explique comment vous gardez la main.",
     date: "2026-07-03",
     author: "L'équipe Agent AI",
-    readingMinutes: 3,
+    reading: 3,
     tag: "Confiance",
     body: [
       "Confier une tâche à un agent autonome inquiète parfois : et si l'IA décidait à ma place, mal ? La réponse tient en un principe : autonomie encadrée.",
@@ -65,14 +67,14 @@ export const articles: Article[] = [
   },
 ];
 
-export function getArticle(slug: string) {
-  return articles.find((a) => a.slug === slug);
+let inserted = 0;
+for (const a of articles) {
+  const rows = await sql`
+    insert into articles (slug, title, excerpt, body, tag, author, reading_minutes, status, published_at)
+    values (${a.slug}, ${a.title}, ${a.excerpt}, ${a.body.join("\n\n")}, ${a.tag}, ${a.author}, ${a.reading}, 'published', ${a.date})
+    on conflict (slug) do nothing
+    returning id
+  `;
+  if (rows.length) inserted++;
 }
-
-export function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("fr-FR", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
-}
+console.log(`Seed terminé : ${inserted} article(s) inséré(s), ${articles.length - inserted} déjà présent(s).`);
