@@ -15,7 +15,7 @@ export default async function EditArticlePage(
   if (!article) notFound();
 
   return (
-    <main className="container-page max-w-3xl py-10">
+    <div className="mx-auto max-w-3xl">
       <Link
         href="/admin/articles"
         className="text-body-sm text-muted transition-colors hover:text-foreground-strong"
@@ -24,6 +24,6 @@ export default async function EditArticlePage(
       </Link>
       <h1 className="heading mt-2 mb-8">Éditer l&apos;article</h1>
       <ArticleEditor article={article} />
-    </main>
+    </div>
   );
 }

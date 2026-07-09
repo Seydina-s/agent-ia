@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export default async function NewArticlePage() {
   await requireAdmin();
   return (
-    <main className="container-page max-w-3xl py-10">
+    <div className="mx-auto max-w-3xl">
       <Link
         href="/admin/articles"
         className="text-body-sm text-muted transition-colors hover:text-foreground-strong"
@@ -16,6 +16,6 @@ export default async function NewArticlePage() {
       </Link>
       <h1 className="heading mt-2 mb-8">Nouvel article</h1>
       <ArticleEditor />
-    </main>
+    </div>
   );
 }

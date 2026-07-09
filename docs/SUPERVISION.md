@@ -50,4 +50,10 @@ Format :
 - **Contrôles** : build ✅ · lint ✅ · **tracking vérifié** (8 vues, 6 pages, device détecté en base) · page analytics **200** avec données réelles.
 - **Suivis** : tracking des clics CTA (extension), reset password + emails (⛔ domaine/Resend), déploiement Hostinger.
 
+## [2026-07-09] — Vrai back-office : shell, rôles, users, upload photo · ✅
+- **Retour client** : back-office jugé trop limité (« juste une page »), pas d'endroit clair pour poster un article avec photo, besoin d'un super admin qui gère les comptes.
+- **Livré** : shell admin (sidebar persistante + topbar rôle/thème/logout, responsive) ; **rôles** superadmin/admin + statut active/pending ; **gestion utilisateurs** `/admin/users` (superadmin) : créer / valider / suspendre / supprimer (garde-fous : pas d'auto-suppression, dernier superadmin protégé) ; **upload photo** local (`/api/admin/upload`) intégré à l'éditeur (choisir une photo → aperçu → publié → visible sur le blog) ; pages **Messages** + **Abonnés** (avec export CSV) ; dashboard repensé. Compte existant `piccolofall@gmail.com` promu **superadmin**. Migration `middleware`→`proxy` (Next 16).
+- **Contrôles** : build ✅ · lint ✅ · shell + rôle superadmin ✅ · création admin ✅ · **upload photo E2E** ✅ (fichier servi + image sur l'article) · testé sur branche éphémère.
+- **Suivis** : upload sur VPS Hostinger (FS accessible en écriture — OK ; sur Vercel il faudrait Cloudinary) ; éditeur riche Tiptap ; reset password + emails (⛔ domaine/Resend) ; se déconnecter/reconnecter pour rafraîchir le rôle en session.
+
 <!-- Nouvelles entrées au-dessus de cette ligne. -->

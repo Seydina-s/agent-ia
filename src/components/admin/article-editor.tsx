@@ -13,6 +13,28 @@ const field =
 export function ArticleEditor({ article }: { article?: Article }) {
   const [state, action, pending] = useActionState(saveArticle, initial);
   const [title, setTitle] = useState(article?.title ?? "");
+  const [cover, setCover] = useState(article?.cover_image_url ?? "");
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
+
+  async function onFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadError("");
+    setUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Échec de l'envoi.");
+      setCover(data.url);
+    } catch (err) {
+      setUploadError(err instanceof Error ? err.message : "Échec de l'envoi.");
+    } finally {
+      setUploading(false);
+    }
+  }
 
   const autoSlug = title
     .toLowerCase()
@@ -75,19 +97,51 @@ export function ArticleEditor({ article }: { article?: Article }) {
           />
         </div>
         <div className="flex flex-col gap-2">
-          <label htmlFor="cover_image_url" className="text-body-sm text-muted">
-            Image de couverture (URL)
-          </label>
+          <span className="text-body-sm text-muted">Image de couverture</span>
+          <div className="flex flex-wrap items-center gap-3">
+            <label className="cursor-pointer rounded-pill border border-hairline px-4 py-2 text-body-sm text-foreground transition-colors hover:border-accent hover:text-foreground-strong">
+              {uploading ? "Envoi…" : "Choisir une photo"}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={onFile}
+                disabled={uploading}
+                className="hidden"
+              />
+            </label>
+            {cover && (
+              <button
+                type="button"
+                onClick={() => setCover("")}
+                className="text-body-sm text-danger hover:underline"
+              >
+                Retirer
+              </button>
+            )}
+          </div>
+          {/* the value actually submitted */}
+          <input type="hidden" name="cover_image_url" value={cover} />
           <input
-            id="cover_image_url"
-            name="cover_image_url"
             type="url"
-            defaultValue={article?.cover_image_url ?? ""}
-            placeholder="https://…"
-            className={field}
+            value={cover}
+            onChange={(e) => setCover(e.target.value)}
+            placeholder="…ou collez une URL d'image"
+            className={`${field} mt-1`}
           />
+          {uploadError && (
+            <p className="text-caption text-danger">{uploadError}</p>
+          )}
         </div>
       </div>
+
+      {cover && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={cover}
+          alt="Aperçu de la couverture"
+          className="max-h-56 w-full rounded-lg border border-hairline object-cover"
+        />
+      )}
 
       <div className="flex flex-col gap-2">
         <label htmlFor="excerpt" className="text-body-sm text-muted">

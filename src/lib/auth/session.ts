@@ -10,7 +10,8 @@ function secretKey() {
   return new TextEncoder().encode(s);
 }
 
-export type SessionPayload = { sub: string; email: string };
+export type Role = "superadmin" | "admin";
+export type SessionPayload = { sub: string; email: string; role: Role };
 
 export async function createSession(payload: SessionPayload) {
   const token = await new SignJWT(payload as unknown as JWTPayload)
@@ -33,7 +34,8 @@ export async function getSession(): Promise<SessionPayload | null> {
   if (!token) return null;
   try {
     const { payload } = await jwtVerify(token, secretKey());
-    return { sub: String(payload.sub), email: String(payload.email) };
+    const role: Role = payload.role === "superadmin" ? "superadmin" : "admin";
+    return { sub: String(payload.sub), email: String(payload.email), role };
   } catch {
     return null;
   }
@@ -51,4 +53,14 @@ export async function requireAdmin(): Promise<SessionPayload> {
   const { redirect } = await import("next/navigation");
   redirect("/admin/login"); // throws (NEXT_REDIRECT) — never returns
   throw new Error("unreachable");
+}
+
+export async function requireSuperadmin(): Promise<SessionPayload> {
+  const session = await requireAdmin();
+  if (session.role !== "superadmin") {
+    const { redirect } = await import("next/navigation");
+    redirect("/admin");
+    throw new Error("unreachable");
+  }
+  return session;
 }

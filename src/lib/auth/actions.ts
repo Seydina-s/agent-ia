@@ -33,8 +33,14 @@ export async function login(
   }
 
   const rows = (await sql`
-    select id, email, password_hash from admin_users where email = ${email}
-  `) as { id: string; email: string; password_hash: string }[];
+    select id, email, password_hash, role, status from admin_users where email = ${email}
+  `) as {
+    id: string;
+    email: string;
+    password_hash: string;
+    role: "superadmin" | "admin";
+    status: string;
+  }[];
   const user = rows[0];
 
   const ok = user
@@ -50,8 +56,13 @@ export async function login(
     };
   }
 
+  if (user.status !== "active") {
+    return { error: "Ce compte est en attente de validation ou suspendu." };
+  }
+
   await resetAttempts(email);
-  await createSession({ sub: user.id, email: user.email });
+  await sql`update admin_users set last_login_at = now() where id = ${user.id}`;
+  await createSession({ sub: user.id, email: user.email, role: user.role });
   redirect("/admin");
 }
 
@@ -71,12 +82,12 @@ export async function setupFirstAdmin(
 
   const hash = await bcrypt.hash(password, 12);
   const rows = (await sql`
-    insert into admin_users (email, password_hash, name)
-    values (${email}, ${hash}, ${name || null})
+    insert into admin_users (email, password_hash, name, role, status)
+    values (${email}, ${hash}, ${name || null}, 'superadmin', 'active')
     returning id, email
   `) as { id: string; email: string }[];
 
-  await createSession({ sub: rows[0].id, email: rows[0].email });
+  await createSession({ sub: rows[0].id, email: rows[0].email, role: "superadmin" });
   redirect("/admin");
 }
 

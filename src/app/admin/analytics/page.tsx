@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { requireAdmin } from "@/lib/auth/session";
 import {
   getTotals,
@@ -59,15 +58,9 @@ export default async function AnalyticsPage() {
   ];
 
   return (
-    <main className="container-page py-10">
+    <div className="mx-auto max-w-6xl">
       <header className="border-b border-hairline pb-6">
-        <Link
-          href="/admin"
-          className="text-body-sm text-muted transition-colors hover:text-foreground-strong"
-        >
-          ← Tableau de bord
-        </Link>
-        <h1 className="heading mt-2">Analytics</h1>
+        <h1 className="heading">Analytics</h1>
         <p className="mt-2 text-body-sm text-muted">
           Trafic du site — sans cookies ni données personnelles.
         </p>
@@ -123,6 +116,6 @@ export default async function AnalyticsPage() {
           <BarList items={referrers} emptyLabel="Pas encore de données." />
         </section>
       </div>
-    </main>
+    </div>
   );
 }

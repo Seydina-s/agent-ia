@@ -38,7 +38,9 @@
       "Bash(curl -s -o /tmp/g2.json -w 'HTTP %{http_code}\\\\n' https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent -H 'Authorization: Bearer __TRACKED_VAR__' -H 'Content-Type: application/json' -d '{\"contents\":[{\"parts\":[{\"text\":\"Dis bonjour en un mot.\"}]}]}')",
       "Bash(node -e ' *)",
       "Bash(DATABASE_URL=\"postgresql://neondb_owner:npg_vjgPFs3S9yTI@ep-holy-hall-atlivax0-pooler.c-9.us-east-1.aws.neon.tech/neondb?channel_binding=require&sslmode=require\" npm run dev)",
-      "Bash(SS=\"/c/Users/HP/AppData/Local/Temp/claude/c--Users-HP-agent-ia/af042a41-d2ce-4b7e-ac8a-965a958cf309/scratchpad\" node /c/Users/HP/agent-ia/_an2.mjs)"
+      "Bash(SS=\"/c/Users/HP/AppData/Local/Temp/claude/c--Users-HP-agent-ia/af042a41-d2ce-4b7e-ac8a-965a958cf309/scratchpad\" node /c/Users/HP/agent-ia/_an2.mjs)",
+      "Bash(node -e \"const b=require\\('bcryptjs'\\); b.hash\\('super1234',12\\).then\\(h=>console.log\\(h\\)\\)\")",
+      "Bash(DATABASE_URL='postgresql://neondb_owner:npg_vjgPFs3S9yTI@ep-holy-hall-atlivax0-pooler.c-9.us-east-1.aws.neon.tech/neondb?channel_binding=require&sslmode=require' DATABASE_URL_OVERRIDE=1 bash -c 'export DATABASE_URL=\"postgresql://neondb_owner:npg_vjgPFs3S9yTI@ep-divine-boat-atv2a9sa-pooler.c-9.us-east-1.aws.neon.tech/neondb?sslmode=require\"')"
     ]
   }
 }

@@ -11,18 +11,10 @@ export default async function AdminArticlesPage() {
   const articles = await listAllArticles();
 
   return (
-    <main className="container-page py-10">
+    <div className="mx-auto max-w-6xl">
       <header className="flex flex-wrap items-center justify-between gap-4 border-b border-hairline pb-6">
-        <div>
-          <Link
-            href="/admin"
-            className="text-body-sm text-muted transition-colors hover:text-foreground-strong"
-          >
-            ← Tableau de bord
-          </Link>
-          <h1 className="heading mt-2">Articles</h1>
-        </div>
-        <GlassButton href="/admin/articles/new">Nouvel article</GlassButton>
+        <h1 className="heading">Articles</h1>
+        <GlassButton href="/admin/articles/new">＋ Nouvel article</GlassButton>
       </header>
 
       {articles.length === 0 ? (
@@ -84,6 +76,6 @@ export default async function AdminArticlesPage() {
           ))}
         </ul>
       )}
-    </main>
+    </div>
   );
 }

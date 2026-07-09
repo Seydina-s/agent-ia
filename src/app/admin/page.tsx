@@ -1,13 +1,12 @@
 import Link from "next/link";
 import { getSession } from "@/lib/auth/session";
-import { logout } from "@/lib/auth/actions";
 import { sql } from "@/lib/db";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { GlassButton } from "@/components/ui/glass-button";
 
 export const dynamic = "force-dynamic";
 
 async function getMetrics() {
-  const [articles, published, messages, subs, views, viewsToday] =
+  const [articles, published, messages, subs, views, viewsToday, admins] =
     await Promise.all([
       sql`select count(*)::int as n from articles`,
       sql`select count(*)::int as n from articles where status = 'published'`,
@@ -15,14 +14,17 @@ async function getMetrics() {
       sql`select count(*)::int as n from newsletter_subscribers`,
       sql`select count(*)::int as n from page_views`,
       sql`select count(*)::int as n from page_views where created_at >= now() - interval '1 day'`,
+      sql`select count(*)::int as n from admin_users`,
     ]);
+  const n = (r: unknown) => (r as { n: number }[])[0].n;
   return {
-    articles: (articles as { n: number }[])[0].n,
-    published: (published as { n: number }[])[0].n,
-    messages: (messages as { n: number }[])[0].n,
-    subs: (subs as { n: number }[])[0].n,
-    views: (views as { n: number }[])[0].n,
-    viewsToday: (viewsToday as { n: number }[])[0].n,
+    articles: n(articles),
+    published: n(published),
+    messages: n(messages),
+    subs: n(subs),
+    views: n(views),
+    viewsToday: n(viewsToday),
+    admins: n(admins),
   };
 }
 
@@ -31,99 +33,87 @@ export default async function AdminDashboard() {
   const m = await getMetrics();
 
   const metrics = [
-    { label: "Visites (total)", value: m.views },
-    { label: "Visites (24h)", value: m.viewsToday },
-    { label: "Articles publiés", value: m.published },
-    { label: "Brouillons", value: m.articles - m.published },
-    { label: "Messages", value: m.messages },
-    { label: "Abonnés newsletter", value: m.subs },
-  ];
-
-  const sections = [
-    { label: "Articles", desc: "Rédiger et publier", href: "/admin/articles" },
-    { label: "Messages", desc: "Boîte de réception contact", soon: true },
-    { label: "Abonnés", desc: "Liste newsletter", soon: true },
-    { label: "Analytics", desc: "Trafic & pages", href: "/admin/analytics" },
+    { label: "Visites (total)", value: m.views, href: "/admin/analytics" },
+    { label: "Visites (24h)", value: m.viewsToday, href: "/admin/analytics" },
+    { label: "Articles publiés", value: m.published, href: "/admin/articles" },
+    { label: "Brouillons", value: m.articles - m.published, href: "/admin/articles" },
+    { label: "Messages", value: m.messages, href: "/admin/messages" },
+    { label: "Abonnés", value: m.subs, href: "/admin/subscribers" },
   ];
 
   return (
-    <main className="container-page py-10">
-      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-hairline pb-6">
+    <div className="mx-auto max-w-6xl">
+      <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="eyebrow">Backoffice</p>
+          <p className="eyebrow">Bienvenue{session?.email ? "" : ""}</p>
           <h1 className="heading mt-2">Tableau de bord</h1>
         </div>
-        <div className="flex items-center gap-4">
-          <span className="hidden text-body-sm text-muted sm:inline">
-            {session?.email}
-          </span>
-          <ThemeToggle />
-          <form action={logout}>
-            <button
-              type="submit"
-              className="rounded-pill border border-hairline px-4 py-2 text-body-sm text-foreground transition-colors hover:border-accent hover:text-foreground-strong"
-            >
-              Déconnexion
-            </button>
-          </form>
-        </div>
-      </header>
+        <GlassButton href="/admin/articles/new">＋ Nouvel article</GlassButton>
+      </div>
 
-      <section className="mt-10">
-        <h2 className="eyebrow">Vue d&apos;ensemble</h2>
-        <div className="mt-5 grid grid-cols-2 gap-px overflow-hidden border border-hairline sm:grid-cols-3 lg:grid-cols-6">
-          {metrics.map((x) => (
-            <div key={x.label} className="bg-surface p-6">
-              <div className="text-[length:var(--text-heading)] font-bold leading-none text-foreground-strong">
-                {x.value}
-              </div>
-              <div className="mt-2 text-caption uppercase tracking-wide text-muted">
-                {x.label}
-              </div>
+      <div className="mt-8 grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-hairline sm:grid-cols-3 lg:grid-cols-6">
+        {metrics.map((x) => (
+          <Link
+            key={x.label}
+            href={x.href}
+            className="bg-surface p-6 transition-colors hover:bg-hairline"
+          >
+            <div className="text-[length:var(--text-heading)] font-bold leading-none text-foreground-strong">
+              {x.value}
             </div>
-          ))}
-        </div>
-      </section>
+            <div className="mt-2 text-caption uppercase tracking-wide text-muted">
+              {x.label}
+            </div>
+          </Link>
+        ))}
+      </div>
 
-      <section className="mt-12">
-        <h2 className="eyebrow">Gestion</h2>
-        <div className="mt-5 grid gap-px overflow-hidden border border-hairline sm:grid-cols-2 lg:grid-cols-4">
-          {sections.map((s) => {
-            const inner = (
-              <>
-                <div className="flex items-center justify-between">
-                  <span className="text-heading-sm font-medium text-foreground-strong">
-                    {s.label}
-                  </span>
-                  {s.soon ? (
-                    <span className="rounded-pill border border-hairline px-2 py-0.5 text-caption uppercase tracking-wide text-muted">
-                      Bientôt
-                    </span>
-                  ) : (
-                    <span aria-hidden className="text-accent-ink">
-                      →
-                    </span>
-                  )}
-                </div>
-                <span className="text-body-sm text-muted">{s.desc}</span>
-              </>
-            );
-            return s.href ? (
-              <Link
-                key={s.label}
-                href={s.href}
-                className="flex flex-col gap-2 bg-surface p-6 transition-colors hover:bg-hairline"
-              >
-                {inner}
-              </Link>
-            ) : (
-              <div key={s.label} className="flex flex-col gap-2 bg-surface p-6">
-                {inner}
-              </div>
-            );
-          })}
-        </div>
-      </section>
-    </main>
+      <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <QuickCard
+          href="/admin/articles/new"
+          title="Écrire un article"
+          desc="Rédigez, ajoutez une image, publiez — il apparaît aussitôt sur le blog."
+        />
+        <QuickCard
+          href="/admin/messages"
+          title="Voir les messages"
+          desc="Les demandes reçues via le formulaire de contact."
+        />
+        {session?.role === "superadmin" && (
+          <QuickCard
+            href="/admin/users"
+            title="Gérer les accès"
+            desc="Ajouter, suspendre ou retirer des comptes administrateurs."
+          />
+        )}
+      </div>
+    </div>
+  );
+}
+
+function QuickCard({
+  href,
+  title,
+  desc,
+}: {
+  href: string;
+  title: string;
+  desc: string;
+}) {
+  return (
+    <Link
+      href={href}
+      className="group flex flex-col gap-2 rounded-lg border border-hairline p-6 transition-colors hover:border-accent"
+    >
+      <div className="flex items-center justify-between">
+        <span className="text-heading-sm font-medium text-foreground-strong">
+          {title}
+        </span>
+        <span aria-hidden className="text-accent-ink transition-transform group-hover:translate-x-1">
+          →
+        </span>
+      </div>
+      <span className="text-body-sm text-muted">{desc}</span>
+    </Link>
   );
 }

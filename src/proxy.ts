@@ -4,8 +4,8 @@ import { SESSION_COOKIE } from "@/lib/auth/session";
 
 const secret = new TextEncoder().encode(process.env.SESSION_SECRET);
 
-// Protect every /admin route except the login page.
-export async function middleware(req: NextRequest) {
+// Protect every /admin route except the login page. (Next 16 "proxy" convention.)
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
   if (pathname === "/admin/login") return NextResponse.next();
 

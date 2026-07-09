@@ -71,4 +71,16 @@ Format d'une entrée :
 
 ---
 
+## L-007 — Next 16 : `middleware.ts` → `proxy.ts` · 2026-07-09
+- **Symptôme** : warning dev « The "middleware" file convention is deprecated. Please use "proxy" instead. »
+- **Cause** : Next 16 renomme Middleware en Proxy (même fonctionnalité).
+- **Correctif** : `src/middleware.ts` → `src/proxy.ts`, fonction `middleware` → `proxy` (export nommé), `config.matcher` inchangé.
+- **Règle de prévention (verrou)** : convention Next 16 = **`proxy.ts`** (racine ou `src/`), export `proxy` (ou default). Un seul fichier proxy par projet.
+
+## L-008 — Tests puppeteer : cibler le bon bouton submit · 2026-07-09
+- **Symptôme** : le save d'article « échouait » en test → en réalité `logout()` était appelé.
+- **Cause** : le shell admin ajoute un `<button type=submit>Déconnexion</button>` en topbar ; `querySelector('button[type=submit]')` le sélectionnait en premier.
+- **Correctif** : cibler le submit **dans le formulaire concerné** : `document.querySelector('textarea[name=body]').closest('form').querySelector('button[type=submit]')`.
+- **Règle de prévention (verrou)** : en test, toujours scoper le submit au formulaire (`closest('form')`), jamais un `button[type=submit]` global quand plusieurs formulaires coexistent.
+
 <!-- Ajouter les nouvelles leçons au-dessus de cette ligne, plus récente en haut. -->

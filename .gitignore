@@ -14,6 +14,9 @@
 /coverage
 /.audit
 
+# user-uploaded media (served from disk at runtime)
+/public/uploads
+
 # next.js
 /.next/
 /out/
