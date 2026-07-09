@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useActionState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import {
   login,
   setupFirstAdmin,
@@ -13,6 +13,26 @@ import { Spinner } from "@/components/ui/spinner";
 const initial: AuthState = {};
 const field =
   "w-full bg-transparent border-0 border-b border-hairline py-3 text-foreground-strong placeholder:text-muted focus:border-accent focus:outline-none transition-colors";
+
+// Live lockout countdown. Remounted (via key) on each locked response, so it
+// starts fresh from the server's remaining seconds and ticks down to zero.
+function Countdown({ seconds }: { seconds: number }) {
+  const [remaining, setRemaining] = useState(seconds);
+  useEffect(() => {
+    const iv = setInterval(
+      () => setRemaining((r) => (r <= 1 ? 0 : r - 1)),
+      1000
+    );
+    return () => clearInterval(iv);
+  }, []);
+  if (remaining <= 0) return null;
+  return (
+    <p className="text-body-sm text-danger" role="alert" aria-live="polite">
+      Trop d&apos;essais. Réessayez dans{" "}
+      <span className="tabular-nums font-medium">{remaining}s</span>.
+    </p>
+  );
+}
 
 export function AuthForm({ setup }: { setup: boolean }) {
   const [state, action, pending] = useActionState(
@@ -69,10 +89,14 @@ export function AuthForm({ setup }: { setup: boolean }) {
         />
       </div>
 
-      {state.error && (
-        <p className="text-body-sm text-danger" role="alert">
-          {state.error}
-        </p>
+      {state.retryAfter ? (
+        <Countdown key={state.nonce} seconds={state.retryAfter} />
+      ) : (
+        state.error && (
+          <p className="text-body-sm text-danger" role="alert">
+            {state.error}
+          </p>
+        )
       )}
 
       <div className="pt-2">

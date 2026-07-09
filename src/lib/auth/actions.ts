@@ -15,7 +15,11 @@ async function clientIp() {
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export type AuthState = { error?: string };
+export type AuthState = {
+  error?: string;
+  retryAfter?: number;
+  nonce?: number; // changes each locked response so the countdown remounts
+};
 
 export async function hasAdmin(): Promise<boolean> {
   const rows = (await sql`select count(*)::int as n from admin_users`) as {
@@ -42,7 +46,7 @@ export async function login(
   const ipKey = `ip:${await clientIp()}`;
   const lock = await getLockAny([email, ipKey]);
   if (lock.locked) {
-    return { error: `Trop d'essais. Réessayez dans ${lock.retryAfter}s.` };
+    return { retryAfter: lock.retryAfter, nonce: Date.now() };
   }
 
   const rows = (await sql`
@@ -64,13 +68,13 @@ export async function login(
   if (!ok) {
     const fe = await recordFailure(email, 3);
     const fi = await recordFailure(ipKey, 6);
-    const retry = Math.max(fe.retryAfter, fi.retryAfter);
-    return {
-      error:
-        fe.locked || fi.locked
-          ? `Trop d'essais. Réessayez dans ${retry}s.`
-          : "Identifiants incorrects.",
-    };
+    if (fe.locked || fi.locked) {
+      return {
+        retryAfter: Math.max(fe.retryAfter, fi.retryAfter),
+        nonce: Date.now(),
+      };
+    }
+    return { error: "Identifiants incorrects." };
   }
 
   await resetAttempts([email, ipKey]);
