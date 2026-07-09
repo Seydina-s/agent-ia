@@ -64,6 +64,8 @@ export default async function ArticlePage(props: PageProps<"/blog/[slug]">) {
             <img
               src={article.cover_image_url}
               alt={article.title}
+              loading="lazy"
+              decoding="async"
               className="w-full rounded-none border border-hairline object-cover"
             />
           </Reveal>

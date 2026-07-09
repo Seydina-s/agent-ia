@@ -42,7 +42,8 @@
       "Bash(node -e \"const b=require\\('bcryptjs'\\); b.hash\\('super1234',12\\).then\\(h=>console.log\\(h\\)\\)\")",
       "Bash(DATABASE_URL='postgresql://neondb_owner:npg_vjgPFs3S9yTI@ep-holy-hall-atlivax0-pooler.c-9.us-east-1.aws.neon.tech/neondb?channel_binding=require&sslmode=require' DATABASE_URL_OVERRIDE=1 bash -c 'export DATABASE_URL=\"postgresql://neondb_owner:npg_vjgPFs3S9yTI@ep-divine-boat-atv2a9sa-pooler.c-9.us-east-1.aws.neon.tech/neondb?sslmode=require\"')",
       "Bash(cd /c/Users/HP/agent-ia *)",
-      "Read(//c/Users/HP/AppData/Local/npm-cache/_logs/**)"
+      "Read(//c/Users/HP/AppData/Local/npm-cache/_logs/**)",
+      "Bash(node -e \"console.log\\('lighthouse', require\\('lighthouse/package.json'\\).version\\)\")"
     ],
     "additionalDirectories": [
       "C:\\Users\\HP\\agent-ia"

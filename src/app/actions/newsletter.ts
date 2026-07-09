@@ -38,6 +38,6 @@ export async function subscribeNewsletter(
 
   return {
     status: "success",
-    message: "Inscrit. On vous écrit bientôt.",
+    message: "Bienvenue à bord. Votre première édition arrive bientôt.",
   };
 }

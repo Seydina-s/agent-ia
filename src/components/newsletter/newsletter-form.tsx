@@ -18,10 +18,11 @@ export function NewsletterForm() {
   return (
     <div className="max-w-sm">
       <p className="text-body-sm font-medium text-foreground-strong">
-        Newsletter
+        Gardez une longueur d&apos;avance
       </p>
       <p className="mt-2 text-body-sm text-muted">
-        Les avancées de nos agents et nos actualités, une fois par mois.
+        Les tactiques concrètes pour automatiser votre entreprise, et ce que nos
+        agents apprennent sur le terrain. Une fois par mois, zéro spam.
       </p>
 
       {state.status === "success" ? (

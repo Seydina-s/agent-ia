@@ -18,6 +18,11 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.resolve(__dirname),
   },
+  poweredByHeader: false,
+  // Tree-shake heavy barrel imports (icons, motion) for a lighter bundle.
+  experimental: {
+    optimizePackageImports: ["lucide-react", "motion"],
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
