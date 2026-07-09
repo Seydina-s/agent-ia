@@ -7,6 +7,7 @@ import { requireAdmin } from "@/lib/auth/session";
 import {
   slugify,
   estimateReadingMinutes,
+  stripHtml,
   type ArticleStatus,
 } from "@/lib/articles-db";
 
@@ -33,7 +34,7 @@ export async function saveArticle(
   slug = slug ? slugify(slug) : slugify(title);
 
   if (title.length < 3) return { error: "Le titre est requis." };
-  if (body.length < 10) return { error: "Le contenu est trop court." };
+  if (stripHtml(body).length < 10) return { error: "Le contenu est trop court." };
   if (!slug) return { error: "Slug invalide." };
 
   const reading = estimateReadingMinutes(body);

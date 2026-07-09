@@ -203,6 +203,69 @@
     color: transparent;
   }
 
+  /* ---- Rich article content (rendered HTML + Tiptap editor surface) ---- */
+  .article-content {
+    color: var(--foreground);
+    font-size: 1.125rem;
+    line-height: 1.75;
+  }
+  .article-content > * + * {
+    margin-top: 1.25rem;
+  }
+  .article-content h2 {
+    font-size: var(--text-heading-sm);
+    font-weight: 600;
+    color: var(--foreground-strong);
+    margin-top: 2rem;
+    line-height: 1.2;
+  }
+  .article-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--foreground-strong);
+    margin-top: 1.5rem;
+  }
+  .article-content a {
+    color: var(--accent-ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .article-content ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+  }
+  .article-content ol {
+    list-style: decimal;
+    padding-left: 1.5rem;
+  }
+  .article-content li + li {
+    margin-top: 0.4rem;
+  }
+  .article-content blockquote {
+    border-left: 3px solid var(--color-cyan-500);
+    padding-left: 1rem;
+    color: var(--foreground-strong);
+    font-style: italic;
+  }
+  .article-content img {
+    border-radius: 0.5rem;
+    border: 1px solid var(--hairline);
+    margin-block: 1.5rem;
+    max-width: 100%;
+    height: auto;
+  }
+  .article-content strong {
+    color: var(--foreground-strong);
+  }
+  /* Tiptap empty-state placeholder */
+  .article-content p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    color: var(--muted);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+
   /* ---- Glacial glass button (user-requested glassmorphism, cyan-tinted) ---- */
   .glass-button-wrap {
     position: relative;

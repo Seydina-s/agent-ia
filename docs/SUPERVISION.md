@@ -56,4 +56,9 @@ Format :
 - **Contrôles** : build ✅ · lint ✅ · shell + rôle superadmin ✅ · création admin ✅ · **upload photo E2E** ✅ (fichier servi + image sur l'article) · testé sur branche éphémère.
 - **Suivis** : upload sur VPS Hostinger (FS accessible en écriture — OK ; sur Vercel il faudrait Cloudinary) ; éditeur riche Tiptap ; reset password + emails (⛔ domaine/Resend) ; se déconnecter/reconnecter pour rafraîchir le rôle en session.
 
+## [2026-07-09] — Notifications email (Resend) + éditeur riche Tiptap · ✅
+- **Email** : `src/lib/mail.ts` (Resend REST, no-op tant que non configuré) ; notifications **nouveau contact** + **nouvel abonné** câblées aux server actions (best-effort). S'active dès `RESEND_API_KEY`/`MAIL_FROM`/`MAIL_TO` renseignés (guide ASSETS). Build/lint/boot OK (chemin no-op).
+- **Éditeur riche** : Tiptap (StarterKit + Link + Image + Placeholder), toolbar (gras, italique, H2/H3, listes, citation, lien, **image uploadée**). Contenu stocké en **HTML** ; rendu public via `.article-content` (avec **fallback paragraphes** pour les anciens articles en texte) + `sanitizeHtml`. `.npmrc` legacy-peer-deps (React 19). **E2E testé** : H2 + gras produits, publiés, rendus côté public.
+- **Suivis** : reset password (⛔ email — code mail prêt), déploiement Hostinger (dépendances externes restantes).
+
 <!-- Nouvelles entrées au-dessus de cette ligne. -->

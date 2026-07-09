@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import {
   getPublishedBySlug,
   bodyToParagraphs,
+  isHtml,
+  sanitizeHtml,
   formatDate,
 } from "@/lib/articles-db";
 import { Reveal } from "@/components/motion/reveal";
@@ -67,12 +69,21 @@ export default async function ArticlePage(props: PageProps<"/blog/[slug]">) {
           </Reveal>
         )}
 
-        <Reveal delay={0.1} className="mt-12 flex max-w-2xl flex-col gap-6">
-          {bodyToParagraphs(article.body).map((p, i) => (
-            <p key={i} className="text-lg leading-relaxed text-foreground">
-              {p}
-            </p>
-          ))}
+        <Reveal delay={0.1} className="mt-12 max-w-2xl">
+          {isHtml(article.body) ? (
+            <div
+              className="article-content"
+              dangerouslySetInnerHTML={{ __html: sanitizeHtml(article.body) }}
+            />
+          ) : (
+            <div className="flex flex-col gap-6">
+              {bodyToParagraphs(article.body).map((p, i) => (
+                <p key={i} className="text-lg leading-relaxed text-foreground">
+                  {p}
+                </p>
+              ))}
+            </div>
+          )}
         </Reveal>
 
         <Reveal className="mt-16 flex flex-col items-start gap-5 border-t border-hairline pt-12">

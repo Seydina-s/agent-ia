@@ -5,6 +5,7 @@ import Link from "next/link";
 import { saveArticle, type SaveState } from "@/app/admin/articles/actions";
 import type { Article } from "@/lib/articles-db";
 import { GlassButton } from "@/components/ui/glass-button";
+import { RichEditor } from "@/components/admin/rich-editor";
 
 const initial: SaveState = {};
 const field =
@@ -13,6 +14,7 @@ const field =
 export function ArticleEditor({ article }: { article?: Article }) {
   const [state, action, pending] = useActionState(saveArticle, initial);
   const [title, setTitle] = useState(article?.title ?? "");
+  const [body, setBody] = useState(article?.body ?? "");
   const [cover, setCover] = useState(article?.cover_image_url ?? "");
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState("");
@@ -157,17 +159,9 @@ export function ArticleEditor({ article }: { article?: Article }) {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="body" className="text-body-sm text-muted">
-          Contenu — séparez les paragraphes par une ligne vide
-        </label>
-        <textarea
-          id="body"
-          name="body"
-          rows={16}
-          required
-          defaultValue={article?.body}
-          className={`${field} resize-y leading-relaxed`}
-        />
+        <span className="text-body-sm text-muted">Contenu</span>
+        <input type="hidden" name="body" value={body} />
+        <RichEditor value={article?.body ?? ""} onChange={setBody} />
       </div>
 
       <div className="flex flex-col gap-2">

@@ -66,16 +66,38 @@ export function slugify(s: string) {
     .slice(0, 80);
 }
 
+export function stripHtml(html: string) {
+  return html
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&[a-z]+;/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export function estimateReadingMinutes(body: string) {
-  const words = body.trim().split(/\s+/).filter(Boolean).length;
+  const words = stripHtml(body).split(/\s+/).filter(Boolean).length;
   return Math.max(1, Math.round(words / 200));
 }
 
+export function isHtml(body: string) {
+  return /<\/?(p|h[1-6]|ul|ol|li|strong|em|a|img|blockquote|br)\b/i.test(body);
+}
+
+// Legacy plain-text bodies: split on blank lines into paragraphs.
 export function bodyToParagraphs(body: string) {
   return body
     .split(/\n\s*\n/)
     .map((p) => p.trim())
     .filter(Boolean);
+}
+
+// Minimal safeguard for admin-authored HTML (strip scripts / inline handlers).
+export function sanitizeHtml(html: string) {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, "")
+    .replace(/\son\w+="[^"]*"/gi, "")
+    .replace(/\son\w+='[^']*'/gi, "")
+    .replace(/javascript:/gi, "");
 }
 
 export function formatDate(iso: string) {

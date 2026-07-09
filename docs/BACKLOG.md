@@ -132,7 +132,8 @@ Objectif : niveau studio primé, prêt à présenter/déployer.
 | S6-12 | Migration `middleware.ts` → `proxy.ts` (Next 16) | M | ☑ |
 | S6-8 | Analytics : logging `page_views` + dashboard trafic/pages | M | ☑ (maison, sans cookies) |
 | S6-9 | Chatbot → Gemini (réponses génératives) + repli règles | S | ☑ (⚠️ quota gratuit à surveiller) |
-| S6-10 | Notifications email (contact/newsletter) + envoi reset | S | ☐ (⛔ email) |
+| S6-10 | Notifications email (contact/newsletter) + envoi reset | S | ☑ code prêt (s'active à la config Resend) |
+| S6-13 | Éditeur riche Tiptap (gras/titres/listes/lien/image) + rendu HTML | M | ☑ |
 
 ## Inbox — Améliorations remontées (à prioriser par l'orchestrateur)
 > Alimentée en continu par les agents **designer** et **ux-engineer** lors de leurs supervisions. L'orchestrateur classe par priorité et bascule vers un sprint.
