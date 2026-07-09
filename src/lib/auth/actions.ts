@@ -30,7 +30,10 @@ export async function login(
 ): Promise<AuthState> {
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "");
-  if (!EMAIL_RE.test(email) || !password) {
+  // Only truly empty fields are "requis". Anything else (even a malformed
+  // email) is treated as a login attempt: it counts toward the lockout and
+  // returns a generic "Identifiants incorrects." (it simply won't match a user).
+  if (!email || !password) {
     return { error: "Identifiants requis." };
   }
 
