@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState } from "react";
 import {
   login,
@@ -7,6 +8,7 @@ import {
   type AuthState,
 } from "@/lib/auth/actions";
 import { GlassButton } from "@/components/ui/glass-button";
+import { Spinner } from "@/components/ui/spinner";
 
 const initial: AuthState = {};
 const field =
@@ -44,9 +46,19 @@ export function AuthForm({ setup }: { setup: boolean }) {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="password" className="text-body-sm text-muted">
-          Mot de passe {setup && "(8 caractères min.)"}
-        </label>
+        <div className="flex items-center justify-between">
+          <label htmlFor="password" className="text-body-sm text-muted">
+            Mot de passe {setup && "(8 caractères min.)"}
+          </label>
+          {!setup && (
+            <Link
+              href="/admin/forgot"
+              className="text-body-sm text-muted underline-offset-4 transition-colors hover:text-accent-ink hover:underline"
+            >
+              Mot de passe oublié ?
+            </Link>
+          )}
+        </div>
         <input
           id="password"
           name="password"
@@ -65,11 +77,16 @@ export function AuthForm({ setup }: { setup: boolean }) {
 
       <div className="pt-2">
         <GlassButton size="lg" type="submit" disabled={pending}>
-          {pending
-            ? "…"
-            : setup
-              ? "Créer le compte"
-              : "Se connecter"}
+          {pending ? (
+            <span className="flex items-center gap-2">
+              <Spinner />
+              {setup ? "Création…" : "Connexion…"}
+            </span>
+          ) : setup ? (
+            "Créer le compte"
+          ) : (
+            "Se connecter"
+          )}
         </GlassButton>
       </div>
     </form>

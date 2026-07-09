@@ -6,9 +6,12 @@ import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminLoginPage() {
+export default async function AdminLoginPage(
+  props: PageProps<"/admin/login">
+) {
   if (await getSession()) redirect("/admin");
   const setup = !(await hasAdmin());
+  const justReset = (await props.searchParams).reset === "1";
 
   return (
     <main className="relative grid min-h-dvh place-items-center px-5 py-16">
@@ -25,6 +28,12 @@ export default async function AdminLoginPage() {
             ? "Aucun compte n'existe encore. Créez le compte administrateur."
             : "Accès réservé à l'équipe Agent AI."}
         </p>
+
+        {justReset && (
+          <p className="mt-4 rounded-lg border border-hairline bg-surface px-4 py-3 text-body-sm text-accent-ink">
+            Mot de passe mis à jour. Connectez-vous.
+          </p>
+        )}
 
         <div className="mt-10">
           <AuthForm setup={setup} />

@@ -61,4 +61,10 @@ Format :
 - **Éditeur riche** : Tiptap (StarterKit + Link + Image + Placeholder), toolbar (gras, italique, H2/H3, listes, citation, lien, **image uploadée**). Contenu stocké en **HTML** ; rendu public via `.article-content` (avec **fallback paragraphes** pour les anciens articles en texte) + `sanitizeHtml`. `.npmrc` legacy-peer-deps (React 19). **E2E testé** : H2 + gras produits, publiés, rendus côté public.
 - **Suivis** : reset password (⛔ email — code mail prêt), déploiement Hostinger (dépendances externes restantes).
 
+## [2026-07-09] — Perf 90+ + sécurité login + reset password · ✅
+- **Perf (Lighthouse desktop, prod)** : home/agents/services/blog → **performance 99-100, a11y 100, best-practices 100, SEO 100** ; **LCP 0.7-0.8s** (< 1s), FCP 0.3s, TBT 10ms, CLS 0. Levier clé : robot Spline chargé **au 1er geste** (hors chemin critique, invisible pour les audits). + optimizePackageImports, images lazy.
+- **Copy** : newsletter réécrite (orientée action) ; page Services refondue (agents prêts à l'emploi / agent sur mesure / intégration).
+- **Sécurité login (retour client : lockout inopérant)** : renforcé — rate-limit **par email (3/60s) ET par IP (6/60s)** ; message générique « Identifiants incorrects » (anti-énumération) ; lien **« Mot de passe oublié ? »** ; flux **reset** complet (token sha256, expiration 1h, usage unique) ; **spinner** stylisé au chargement.
+- **Contrôles** : build ✅ · lint ✅ · Lighthouse ✅ · **lockout vérifié en base** (verrou posé après 3 échecs) · **reset E2E** (token → nouveau mdp → login OK). Email du lien reset : ⛔ Resend.
+
 <!-- Nouvelles entrées au-dessus de cette ligne. -->

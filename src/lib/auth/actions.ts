@@ -1,10 +1,17 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { headers } from "next/headers";
 import bcrypt from "bcryptjs";
 import { sql } from "@/lib/db";
 import { createSession, clearSession } from "@/lib/auth/session";
-import { getLock, recordFailure, resetAttempts } from "@/lib/auth/rate-limit";
+import { getLockAny, recordFailure, resetAttempts } from "@/lib/auth/rate-limit";
+
+async function clientIp() {
+  const h = await headers();
+  const fwd = h.get("x-forwarded-for");
+  return (fwd?.split(",")[0].trim() || h.get("x-real-ip") || "unknown").slice(0, 60);
+}
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -27,7 +34,10 @@ export async function login(
     return { error: "Identifiants requis." };
   }
 
-  const lock = await getLock(email);
+  // Rate-limit by both the email AND the client IP so rotating emails can't
+  // bypass the limit. Email: 3 essais → 60s. IP: 6 essais → 60s.
+  const ipKey = `ip:${await clientIp()}`;
+  const lock = await getLockAny([email, ipKey]);
   if (lock.locked) {
     return { error: `Trop d'essais. Réessayez dans ${lock.retryAfter}s.` };
   }
@@ -43,24 +53,24 @@ export async function login(
   }[];
   const user = rows[0];
 
-  const ok = user
-    ? await bcrypt.compare(password, user.password_hash)
-    : false;
+  const ok =
+    user && user.status === "active"
+      ? await bcrypt.compare(password, user.password_hash)
+      : false;
 
   if (!ok) {
-    const f = await recordFailure(email);
+    const fe = await recordFailure(email, 3);
+    const fi = await recordFailure(ipKey, 6);
+    const retry = Math.max(fe.retryAfter, fi.retryAfter);
     return {
-      error: f.locked
-        ? `Trop d'essais. Réessayez dans ${f.retryAfter}s.`
-        : "Email ou mot de passe incorrect.",
+      error:
+        fe.locked || fi.locked
+          ? `Trop d'essais. Réessayez dans ${retry}s.`
+          : "Identifiants incorrects.",
     };
   }
 
-  if (user.status !== "active") {
-    return { error: "Ce compte est en attente de validation ou suspendu." };
-  }
-
-  await resetAttempts(email);
+  await resetAttempts([email, ipKey]);
   await sql`update admin_users set last_login_at = now() where id = ${user.id}`;
   await createSession({ sub: user.id, email: user.email, role: user.role });
   redirect("/admin");

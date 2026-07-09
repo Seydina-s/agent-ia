@@ -4,10 +4,13 @@ import { SESSION_COOKIE } from "@/lib/auth/session";
 
 const secret = new TextEncoder().encode(process.env.SESSION_SECRET);
 
-// Protect every /admin route except the login page. (Next 16 "proxy" convention.)
+// Public admin routes (accessible without a session).
+const PUBLIC_ADMIN = ["/admin/login", "/admin/forgot", "/admin/reset"];
+
+// Protect every /admin route except the public ones. (Next 16 "proxy" convention.)
 export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  if (pathname === "/admin/login") return NextResponse.next();
+  if (PUBLIC_ADMIN.includes(pathname)) return NextResponse.next();
 
   const token = req.cookies.get(SESSION_COOKIE)?.value;
   let valid = false;

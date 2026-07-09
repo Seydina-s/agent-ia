@@ -126,7 +126,8 @@ Objectif : niveau studio primé, prêt à présenter/déployer.
 | S6-3 | Auth : session (jose), bcrypt, rate-limit 3 essais/60s, first-run setup, middleware | M | ☑ |
 | S6-4 | Dashboard `/admin` (métriques réelles) + déconnexion | M | ☑ |
 | S6-5 | Formulaires contact + newsletter stockés en base | M | ☑ |
-| S6-6 | Mot de passe oublié + reset par email | M | ☐ (⛔ email) |
+| S6-6 | Mot de passe oublié + reset (token sécurisé) | M | ☑ (flux OK ; email s'active à la config Resend) |
+| S6-14 | Sécurité login : rate-limit email(3)+IP(6), message générique, spinner | M | ☑ |
 | S6-7 | CMS articles (brouillon/publié, éditeur, **upload photo**) + blog sur base | M | ☑ |
 | S6-11 | Vrai back-office : shell sidebar + topbar, rôles superadmin/admin, gestion utilisateurs (créer/valider/suspendre/supprimer), Messages, Abonnés | M | ☑ |
 | S6-12 | Migration `middleware.ts` → `proxy.ts` (Next 16) | M | ☑ |

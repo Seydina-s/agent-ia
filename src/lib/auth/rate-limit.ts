@@ -1,7 +1,7 @@
 import { sql } from "@/lib/db";
 
-const MAX_ATTEMPTS = 3;
-const LOCK_SECONDS = 60;
+const DEFAULT_MAX = 3;
+const DEFAULT_LOCK = 60; // seconds
 
 export type LockState = { locked: boolean; retryAfter: number };
 
@@ -19,8 +19,22 @@ export async function getLock(identifier: string): Promise<LockState> {
   return { locked: false, retryAfter: 0 };
 }
 
-// Record a failed attempt; lock for LOCK_SECONDS once MAX_ATTEMPTS is reached.
-export async function recordFailure(identifier: string): Promise<LockState> {
+// Highest lock among several identifiers (e.g. email + IP).
+export async function getLockAny(ids: string[]): Promise<LockState> {
+  let worst: LockState = { locked: false, retryAfter: 0 };
+  for (const id of ids) {
+    const l = await getLock(id);
+    if (l.locked && l.retryAfter > worst.retryAfter) worst = l;
+  }
+  return worst;
+}
+
+// Record a failed attempt; lock for `lockSeconds` once `max` is reached.
+export async function recordFailure(
+  identifier: string,
+  max = DEFAULT_MAX,
+  lockSeconds = DEFAULT_LOCK
+): Promise<LockState> {
   const rows = (await sql`
     insert into login_attempts (identifier, failed_count, updated_at)
     values (${identifier}, 1, now())
@@ -29,18 +43,21 @@ export async function recordFailure(identifier: string): Promise<LockState> {
     returning failed_count
   `) as { failed_count: number }[];
 
-  if (rows[0].failed_count >= MAX_ATTEMPTS) {
+  if (rows[0].failed_count >= max) {
     await sql`
       update login_attempts
-      set locked_until = now() + make_interval(secs => ${LOCK_SECONDS}),
+      set locked_until = now() + make_interval(secs => ${lockSeconds}),
           failed_count = 0
       where identifier = ${identifier}
     `;
-    return { locked: true, retryAfter: LOCK_SECONDS };
+    return { locked: true, retryAfter: lockSeconds };
   }
   return { locked: false, retryAfter: 0 };
 }
 
-export async function resetAttempts(identifier: string) {
-  await sql`delete from login_attempts where identifier = ${identifier}`;
+export async function resetAttempts(identifiers: string | string[]) {
+  const ids = Array.isArray(identifiers) ? identifiers : [identifiers];
+  for (const id of ids) {
+    await sql`delete from login_attempts where identifier = ${id}`;
+  }
 }
