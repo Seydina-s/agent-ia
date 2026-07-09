@@ -4,10 +4,9 @@ import { useActionState } from "react";
 import { resetPassword, type ResetState } from "@/app/admin/reset-actions";
 import { GlassButton } from "@/components/ui/glass-button";
 import { Spinner } from "@/components/ui/spinner";
+import { PasswordField } from "@/components/ui/password-field";
 
 const initial: ResetState = {};
-const field =
-  "w-full bg-transparent border-0 border-b border-hairline py-3 text-foreground-strong placeholder:text-muted focus:border-accent focus:outline-none transition-colors";
 
 export function ResetForm({ token }: { token: string }) {
   const [state, action, pending] = useActionState(resetPassword, initial);
@@ -19,13 +18,11 @@ export function ResetForm({ token }: { token: string }) {
         <label htmlFor="password" className="text-body-sm text-muted">
           Nouveau mot de passe (8 caractères min.)
         </label>
-        <input
+        <PasswordField
           id="password"
           name="password"
-          type="password"
           required
           autoComplete="new-password"
-          className={field}
         />
       </div>
 

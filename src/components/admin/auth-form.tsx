@@ -9,6 +9,7 @@ import {
 } from "@/lib/auth/actions";
 import { GlassButton } from "@/components/ui/glass-button";
 import { Spinner } from "@/components/ui/spinner";
+import { PasswordField } from "@/components/ui/password-field";
 
 const initial: AuthState = {};
 const field =
@@ -79,13 +80,11 @@ export function AuthForm({ setup }: { setup: boolean }) {
             </Link>
           )}
         </div>
-        <input
+        <PasswordField
           id="password"
           name="password"
-          type="password"
           required
           autoComplete={setup ? "new-password" : "current-password"}
-          className={field}
         />
       </div>
 

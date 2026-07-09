@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { createAdmin, type UserActionState } from "@/app/admin/users/actions";
 import { GlassButton } from "@/components/ui/glass-button";
+import { PasswordField } from "@/components/ui/password-field";
 
 const initial: UserActionState = {};
 const field =
@@ -26,7 +27,7 @@ export function CreateAdminForm() {
           <label htmlFor="u-password" className="text-body-sm text-muted">
             Mot de passe (8 car. min.)
           </label>
-          <input id="u-password" name="password" type="password" required className={field} />
+          <PasswordField id="u-password" name="password" required inputClassName="py-2.5" />
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div className="flex flex-col gap-2">
