@@ -21,13 +21,20 @@ export async function subscribeNewsletter(
     return { status: "error", message: "Entrez un email valide." };
   }
 
-  // Stocké en base (consultable dans /admin). Sync provider (Brevo…) : plus tard.
+  // Stocké en base (consultable dans /admin).
   const { sql } = await import("@/lib/db");
-  await sql`
+  const rows = (await sql`
     insert into newsletter_subscribers (email)
     values (${email.toLowerCase()})
     on conflict (email) do nothing
-  `;
+    returning id
+  `) as { id: string }[];
+
+  // Notifier seulement une vraie nouvelle inscription (silencieux si mail non configuré).
+  if (rows.length) {
+    const { notifyNewSubscriber } = await import("@/lib/mail");
+    await notifyNewSubscriber(email.toLowerCase());
+  }
 
   return {
     status: "success",

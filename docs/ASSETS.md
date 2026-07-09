@@ -30,6 +30,16 @@ Pour enrichir les sections (positionnement, agents), tu peux fournir :
 - Ou des **boucles vidéo** courtes muettes pour des arrière-plans premium.
 Sinon on reste sur des visuels génératifs (orb, bulles, glows) — déjà cohérents.
 
+## 4bis. Email — notifications & envois (Resend)
+Le code d'envoi est **déjà en place** et s'active **automatiquement** dès que ces 3 variables sont renseignées dans `.env.local` (sinon : silencieux, rien ne casse). Notifications déjà câblées : **nouveau message de contact**, **nouvel abonné newsletter** (et plus tard le reset de mot de passe).
+- Créer un compte **Resend** (gratuit, 3000 mails/mois) → clé API.
+- **Vérifier le domaine** `agent-ai.sn` chez Resend (enregistrements DNS) — nécessaire pour envoyer depuis `@agent-ai.sn`.
+- Renseigner :
+  - `RESEND_API_KEY="re_..."`
+  - `MAIL_FROM="Agent AI <notifications@agent-ai.sn>"` (adresse sur le domaine vérifié)
+  - `MAIL_TO="bonjour@agent-ai.sn"` (où arrivent les notifications)
+- Tant que le domaine n'est pas vérifié, on peut tester avec l'adresse de test Resend (`onboarding@resend.dev`) et un `MAIL_TO` = ton email perso.
+
 ## 5. Contenu factuel (pour le copywriter)
 - Coordonnées réelles (email, téléphone/WhatsApp, adresse Dakar), liens réseaux sociaux.
 - Éventuels logos clients / chiffres réels (nb de clients, projets) pour la preuve sociale.

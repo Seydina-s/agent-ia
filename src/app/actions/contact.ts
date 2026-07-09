@@ -35,13 +35,16 @@ export async function submitContact(
     return { status: "error", errors, values };
   }
 
-  // Stocké en base (consultable dans /admin). Notification email : à brancher
-  // après connexion du domaine/Resend (voir docs/ASSETS.md).
+  // Stocké en base (consultable dans /admin).
   const { sql } = await import("@/lib/db");
   await sql`
     insert into contact_messages (name, email, company, interest, message)
     values (${name}, ${email}, ${company || null}, ${interest || null}, ${message})
   `;
+
+  // Notification email (silencieuse tant que le mail n'est pas configuré).
+  const { notifyNewContact } = await import("@/lib/mail");
+  await notifyNewContact({ name, email, company, interest, message });
 
   return {
     status: "success",
