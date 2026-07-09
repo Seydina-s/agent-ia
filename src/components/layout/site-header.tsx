@@ -41,11 +41,11 @@ export function SiteHeader() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
-      <div className="container-page flex h-18 items-center justify-between">
+      <div className="container-page relative flex h-18 items-center justify-between">
         <Logo />
 
-        {/* Desktop nav — glass pill with the "lamp" on the active page */}
-        <LampNav className="hidden lg:flex" />
+        {/* Desktop nav — glass pill, absolutely centered on screen */}
+        <LampNav className="hidden lg:flex lg:absolute lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2" />
 
         <div className="hidden items-center gap-3 lg:flex">
           <ThemeToggle />
