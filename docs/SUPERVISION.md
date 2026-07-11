@@ -67,4 +67,9 @@ Format :
 - **Sécurité login (retour client : lockout inopérant)** : renforcé — rate-limit **par email (3/60s) ET par IP (6/60s)** ; message générique « Identifiants incorrects » (anti-énumération) ; lien **« Mot de passe oublié ? »** ; flux **reset** complet (token sha256, expiration 1h, usage unique) ; **spinner** stylisé au chargement.
 - **Contrôles** : build ✅ · lint ✅ · Lighthouse ✅ · **lockout vérifié en base** (verrou posé après 3 échecs) · **reset E2E** (token → nouveau mdp → login OK). Email du lien reset : ⛔ Resend.
 
+## [2026-07-11] — Engagement blog : notes, commentaires, articles suggérés · ✅
+- **Livré** : notes **5★** (1 vote/navigateur via cookie httpOnly, upsert, moyenne + nb d'avis) ; **commentaires** (formulaire honeypot + validation, liste, revalidatePath) + **modération back-office** (`/admin/comments`, suppression) + entrée sidebar ; **« À lire ensuite »** (3 articles publiés, même tag prioritaire). Tables `article_ratings` + `article_comments`.
+- **Contrôles** : build ✅ · lint ✅ · **E2E sur branche éphémère** : note enregistrée (4,0/5 · 1 avis), commentaire publié et listé (Commentaires (1)), 2 articles suggérés. Vérifié en base (ratings=1, comments=1, 3 articles publiés).
+- **Suivis** : bouton passer commentaires en modération (pending→validation) si spam ; afficher la note moyenne sur la liste /blog et l'admin articles.
+
 <!-- Nouvelles entrées au-dessus de cette ligne. -->

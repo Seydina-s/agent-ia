@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   FileText,
+  MessageSquare,
   Inbox,
   Users,
   BarChart3,
@@ -15,6 +16,7 @@ import { cn } from "@/lib/utils";
 const items = [
   { href: "/admin", label: "Tableau de bord", icon: LayoutDashboard, exact: true },
   { href: "/admin/articles", label: "Articles", icon: FileText },
+  { href: "/admin/comments", label: "Commentaires", icon: MessageSquare },
   { href: "/admin/messages", label: "Messages", icon: Inbox },
   { href: "/admin/subscribers", label: "Abonnés", icon: Mail },
   { href: "/admin/analytics", label: "Analytics", icon: BarChart3 },

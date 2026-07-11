@@ -136,6 +136,13 @@ Objectif : niveau studio primé, prêt à présenter/déployer.
 | S6-10 | Notifications email (contact/newsletter) + envoi reset | S | ☑ code prêt (s'active à la config Resend) |
 | S6-13 | Éditeur riche Tiptap (gras/titres/listes/lien/image) + rendu HTML | M | ☑ |
 
+## Sprint 7 — Engagement blog
+| ID | Tâche | Prio | Statut |
+|----|-------|------|--------|
+| S7-1 | Notes 5★ par article (1 vote/navigateur via cookie, moyenne + nb d'avis) | M | ☑ |
+| S7-2 | Commentaires (formulaire + liste + honeypot) + modération back-office | M | ☑ |
+| S7-3 | Articles suggérés en fin d'article (« À lire ensuite », même tag prioritaire) | M | ☑ |
+
 ## Inbox — Améliorations remontées (à prioriser par l'orchestrateur)
 > Alimentée en continu par les agents **designer** et **ux-engineer** lors de leurs supervisions. L'orchestrateur classe par priorité et bascule vers un sprint.
 
