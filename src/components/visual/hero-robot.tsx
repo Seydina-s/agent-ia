@@ -9,26 +9,14 @@ import { SignatureOrb } from "./signature-orb";
 const ROBOT_SCENE =
   "https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode";
 
-// The Spline WebGL runtime is heavy (huge main-thread cost), so it stays OUT of
-// the initial load: the light CSS orb shows instantly, and the 3D robot loads on
-// desktop only after the FIRST user interaction (mouse move / scroll / touch).
-// Real visitors trigger it within ~1s; automated audits (Lighthouse/PageSpeed)
-// never interact, so it doesn't weigh on the performance score.
 export function HeroRobot({ className }: { className?: string }) {
   const [showRobot, setShowRobot] = useState(false);
 
   useEffect(() => {
-    if (!window.matchMedia("(min-width: 1024px)").matches) return;
-    let loaded = false;
-    const events = ["pointermove", "pointerdown", "scroll", "touchstart", "keydown"];
-    const load = () => {
-      if (loaded) return;
-      loaded = true;
+    // Desktop only — the hero hides this slot below lg; skip the heavy WebGL load on mobile.
+    if (window.matchMedia("(min-width: 1024px)").matches) {
       setShowRobot(true);
-      events.forEach((e) => window.removeEventListener(e, load));
-    };
-    events.forEach((e) => window.addEventListener(e, load, { passive: true }));
-    return () => events.forEach((e) => window.removeEventListener(e, load));
+    }
   }, []);
 
   return (
